@@ -1,0 +1,13 @@
+<launch>
+  <!-- Show Gazebo GUI on launch -->
+  <include file="$(find iit_gazebo_worlds_pkg)/launch/spawn_sdf.launch">
+    <arg name="robot_name" value="spot_mini_explorer"/>
+    <arg name="x" value="0"/>
+    <arg name="y" value="1.0"/>
+    <arg name="z" value="0.1"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0"/>
+    <arg name="sdf_robot_file" value="$(find iit_gazebo_worlds_pkg)/models/spot_mini_explorer/model.sdf"/>
+  </include>
+</launch>
