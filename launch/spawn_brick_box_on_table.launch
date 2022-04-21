@@ -1,0 +1,13 @@
+<launch>
+  <!-- Show Gazebo GUI on launch -->
+  <include file="$(find iit_gazebo_worlds_pkg)/launch/spawn_sdf.launch">
+    <arg name="robot_name" value="brick_box"/>
+    <arg name="x" value="1.23"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.825"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0"/>
+    <arg name="sdf_robot_file" value="$(find iit_gazebo_worlds_pkg)/models/brick_box/model.sdf"/>
+  </include>
+</launch>
