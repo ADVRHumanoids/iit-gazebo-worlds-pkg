@@ -2,7 +2,7 @@
   <!-- Show Gazebo GUI on launch -->
   <include file="$(find iit_gazebo_worlds_pkg)/launch/spawn_sdf.launch">
     <arg name="robot_name" value="table"/>
-    <arg name="x" value="1.16"/>
+    <arg name="x" value="1.12"/>
     <arg name="y" value="0.0"/>
     <arg name="z" value="0.0"/>
     <arg name="roll" value="0"/>
