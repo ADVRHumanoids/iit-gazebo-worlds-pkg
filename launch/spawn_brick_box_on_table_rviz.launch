@@ -1,0 +1,7 @@
+<launch>
+ 
+    <node pkg="tf" type="static_transform_publisher" name="link1_box_broadcaster" args="1.2 0 0.14 0 0 0 1 base_link link1_box 100" />
+
+    <param name="box_description" textfile="$(find iit_gazebo_worlds_pkg)/models/brick_box/urdf/model.urdf" />
+
+</launch>

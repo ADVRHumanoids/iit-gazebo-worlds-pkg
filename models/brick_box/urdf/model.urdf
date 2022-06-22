@@ -1,0 +1,26 @@
+<robot name="box_description">
+   <link name="link1_box" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <box size="0.25 0.25 0.25" />
+         </geometry>
+         <material name="Blue">
+            <color rgba="0 0.5 1.0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <box size="0.25 0.25 0.25" />
+         </geometry>
+      </collision>
+   </link>
+</robot>

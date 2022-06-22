@@ -1,0 +1,151 @@
+<robot name="table_description">
+   <link name="link1" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <box size="1.5 0.8 0.03" />
+         </geometry>
+         <material name="Cyan">
+            <color rgba="0 1.0 1.0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="1" length="0.5"/>
+         </geometry>
+      </collision>
+   </link>
+
+   <link name="link2" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="0.7 -0.38 -0.365" rpy="0 0 0" />
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+         <material name="Cyan">
+            <color rgba="0 0.0 1.0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+      </collision>
+   </link>
+   <link name="link3" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="0.7 0.38 -0.365" rpy="0 0 0" />
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+         <material name="Cyan">
+            <color rgba="0 1.0 1.0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+      </collision>
+   </link>
+   <link name="link4" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="-0.7 0.38 -0.365" rpy="0 0 0" />
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+         <material name="Cyan">
+            <color rgba="0 1.0 1.0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+      </collision>
+   </link>
+   <link name="link5" >
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="1" />
+      </inertial>
+
+      <visual>
+         <origin xyz="-0.7 -0.38 -0.365" rpy="0 0 0" />
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+         <material name="Cyan">
+            <color rgba="0 0 0 1.0"/>
+         </material>
+      </visual>
+
+      <collision>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="0.02" length="0.7"/>
+         </geometry>
+      </collision>
+   </link>
+
+   <joint name="joint1" type="fixed">
+      <parent link="link1"/>
+      <child link="link2"/>
+      <origin xyz="0.75 -0.4 -0.015" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+   </joint>
+
+   <joint name="joint2" type="fixed">
+      <parent link="link1"/>
+      <child link="link3"/>
+      <origin xyz="0.75 0.4 -0.015" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+   </joint>
+
+   <joint name="joint3" type="fixed">
+      <parent link="link1"/>
+      <child link="link4"/>
+      <origin xyz="-0.75 0.4 -0.015" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+   </joint>
+
+   <joint name="joint4" type="fixed">
+      <parent link="link1"/>
+      <child link="link5"/>
+      <origin xyz="-0.75 -0.4 -0.015" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+   </joint>
+</robot>
