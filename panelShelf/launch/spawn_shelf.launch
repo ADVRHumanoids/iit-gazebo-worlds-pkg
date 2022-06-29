@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <arg name="xacroShelf" value="$(cwd)/../urdf/shelf.urdf.xacro" />
+    <param name="gazebo/shelf_description" command="$(find xacro)/xacro $(arg xacroShelf)" />
+
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x -0.0 -z 2 -model shelf -param gazebo/shelf_description"/>
+    
+</launch>

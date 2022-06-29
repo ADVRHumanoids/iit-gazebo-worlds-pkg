@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="shelf">
+    
+    <xacro:include filename="shelf_panel_macro.xacro" />
+    
+    <xacro:arg name="shelf_name" default="shelf"/>
+    
+    <!-- define the "matrix" of panels as rows by column      -->
+    <xacro:arg name="row" default="4"/>
+    <xacro:arg name="col" default="3"/>
+    
+    <!-- from top left element of the matrix, define if the horizontal panel is present (top and/or bottom)      -->
+    <!-- So number of element MUST be row * col    -->
+    <!-- Also be sure of syntax: space separated 0 or 1 (1 true   0 false)    -->
+    <xacro:property name="top_panels"       value="${[1,  0,  0,  0,  1,  0,  0,  1,  0,  0,  0,  0]}" />
+    <xacro:property name="bottom_panels"    value="${[0,  0,  1,  0,  1,  0,  1,  1,  0,  1,  1,  0]}" />
+
+    <!-- pose is the center of the whole shelf     -->
+    <xacro:arg name="pose_x" default="0"/>
+    <xacro:arg name="pose_y" default="0"/>
+    <xacro:arg name="pose_z" default="0"/>
+    
+    <!-- Other Minor parameters settable    -->
+    <xacro:arg name="v_panel_size_x" default="0.01"/>
+    <xacro:arg name="v_panel_size_y" default="0.5"/>
+    <xacro:arg name="v_panel_size_z" default="0.5"/>
+    <xacro:arg name="h_panel_size_x" default="0.5"/>
+    <xacro:arg name="h_panel_size_y" default="0.5"/>
+    <xacro:arg name="h_panel_size_z" default="0.01"/>
+    <xacro:arg name="v_panel_mass" default="2"/>
+    <xacro:arg name="h_panel_mass" default="2"/>
+    <xacro:arg name="r" default="0"/>
+    <xacro:arg name="g" default="0"/>
+    <xacro:arg name="b" default="1"/>
+    <xacro:arg name="a" default="1"/>
+    <xacro:arg name="gazebo_color" default="Gazebo/Wood"/>
+    <xacro:arg name="kp" default="1e13"/>
+    <xacro:arg name="kd" default="1"/>
+    
+    <xacro:property name="shelf_name" value="$(arg shelf_name)"/>
+    <xacro:property name="row" value="$(arg row)"/>
+    <xacro:property name="col" value="$(arg col)"/>
+    
+    <xacro:property name="top_panels_tmp"    value="$(arg top_panels)" />
+    <xacro:property name="bottom_panels_tmp"    value="$(arg bottom_panels)" />
+    
+    <xacro:property name="pose_x" value="$(arg pose_x)"/>
+    <xacro:property name="pose_y" value="$(arg pose_y)"/>
+    <xacro:property name="pose_z" value="$(arg pose_z)"/>
+    
+    <xacro:property name="v_panel_size_x" value="$(arg v_panel_size_x)"/>
+    <xacro:property name="v_panel_size_y" value="$(arg v_panel_size_y)"/>
+    <xacro:property name="v_panel_size_z" value="$(arg v_panel_size_z)"/>
+    <xacro:property name="h_panel_size_x" value="$(arg h_panel_size_x)"/>
+    <xacro:property name="h_panel_size_y" value="$(arg h_panel_size_y)"/>
+    <xacro:property name="h_panel_size_z" value="$(arg h_panel_size_z)"/>
+    <xacro:property name="v_panel_mass" value="$(arg v_panel_mass)"/>
+    <xacro:property name="h_panel_mass" value="$(arg h_panel_mass)"/>
+    <xacro:property name="r" value="$(arg r)"/>
+    <xacro:property name="g" value="$(arg g)"/>
+    <xacro:property name="b" value="$(arg b)"/>
+    <xacro:property name="a" value="$(arg a)"/>
+    <xacro:property name="gazebo_color" value="$(arg gazebo_color)"/>
+    <xacro:property name="kp" value="$(arg kp)"/>
+    <xacro:property name="kd" value="$(arg kd)"/>
+    
+    <xacro:property name="top_right_corner_z" value="${row/2 * v_panel_size_z}"/>
+    <xacro:property name="top_right_corner_y" value="${col/2 * v_panel_size_y}"/>
+      
+    <!--  Loop in xacro!    -->
+    <xacro:macro name="panels_loop" params="indexes:=^">
+        <xacro:if value="${indexes}">
+            <!-- pop first item from list -->
+            <xacro:property name="index" value="${indexes.pop(0)}"/>
+
+            <!-- // is python "integer division"  -->
+            <xacro:property name="i_row" value="${index // col }"/>
+            <xacro:property name="i_col" value="${index % col }"/>
+            
+            <xacro:shelf_panel panel_name="panel_${index}"
+                parent_link="shelf_root_link"
+                h_bottom="${bottom_panels[index]}"
+                h_top="${top_panels[index]}"
+                pose_x="0"
+                pose_y="${top_right_corner_y - (v_panel_size_y/2) - (v_panel_size_y * i_col)}"
+                pose_z="${top_right_corner_z - (v_panel_size_z/2) - (v_panel_size_z * i_row)}"
+                v_panel_size_x="${v_panel_size_x}"
+                v_panel_size_y="${v_panel_size_y}"
+                v_panel_size_z="${v_panel_size_z}"
+                h_panel_size_x="${h_panel_size_x}"
+                h_panel_size_y="${h_panel_size_y}"
+                h_panel_size_z="${h_panel_size_z}"
+                v_panel_mass="${v_panel_mass}"
+                h_panel_mass="${h_panel_mass}"
+                r="${r}"
+                g="${g}"
+                b="${b}"
+                a="${a}"
+                gazebo_color="${gazebo_color}"
+                kp="${kp}"
+                kd="${kd}"/>
+
+            <!-- recursively call myself -->
+            <xacro:panels_loop/>
+        </xacro:if>
+    </xacro:macro>
+    
+    <link name="shelf_root_link">
+    </link>
+    
+    <!-- calling the macro loop -->
+    <xacro:property name="indexes" value="${list(python.range(0, row*col))}"/>
+    <xacro:panels_loop indexes="${list(indexes)}"/>
+    
+</robot>
