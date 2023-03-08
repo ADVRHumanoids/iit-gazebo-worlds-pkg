@@ -1,13 +1,24 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <model name="brick_box">
+    <pose>0 0 0 0 0 0</pose>
     <static>false</static>
     <link name="brick_box_link">
-      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>40.0</mass>
+        <inertia> 
+          <ixx>1</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1</iyy>
+          <iyz>0</iyz>
+          <izz>1</izz>
+        </inertia>
+      </inertial>
       <collision name="collision">
         <geometry>
           <box>
-            <size>0.25 0.25 0.25</size>
+            <size>0.3 0.5 0.4</size>
           </box>
         </geometry>
       </collision>
@@ -15,7 +26,7 @@
         <geometry>
           <mesh>
             <uri>model://brick_box_3x1x3/meshes/simple_box.dae</uri>
-            <scale>0.25 0.25 0.25</scale>
+            <scale>0.3 0.5 0.4</scale>
           </mesh>
         </geometry>
         <material>
