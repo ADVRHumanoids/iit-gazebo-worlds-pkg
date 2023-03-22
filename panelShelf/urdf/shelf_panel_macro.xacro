@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="shelf_panel_macro">
+<xacro:macro name="shelf_panel" params="
+        panel_name:=panel
+        parent_link:=world
+        h_bottom:=false
+        h_top:=false
+        v_panel_size_x:=0.01
+        v_panel_size_y:=0.5
+        v_panel_size_z:=0.5
+        h_panel_size_x:=0.5
+        h_panel_size_y:=0.5
+        h_panel_size_z:=0.01
+        v_panel_mass:=2
+        h_panel_mass:=2
+        pose_x:=0
+        pose_y:=0
+        pose_z:=0
+        r:=0
+        g:=0
+        b:=1
+        a:=1
+        gazebo_color:=Gazebo/Wood
+        kp:=1e13
+        kd:=1
+        ">
+    
+    <xacro:property name="v_panel_name" value="${panel_name}_vertical"/>
+    <xacro:property name="h_top_panel_name" value="${panel_name}_horizontal_top"/>
+    <xacro:property name="h_bottom_panel_name" value="${panel_name}_horizontal_bottom"/>
+
+    <gazebo>
+        <static>true</static>
+    </gazebo>
+
+<!-- ****************************  VERTICAL PANEL  *******************************************************    -->
+    <link name="${v_panel_name}_link">
+        <inertial>
+<!--            <origin xyz="${size_x/2} ${size_y/2} ${size_z/2}" />-->
+            <mass value="${v_panel_mass}" />
+            <inertia  ixx="${0.083 * v_panel_mass * (v_panel_size_y*v_panel_size_y + v_panel_size_z*v_panel_size_z)}" ixy="0.0"  ixz="0.0"  
+                      iyy="${0.083 * v_panel_mass * (v_panel_size_x*v_panel_size_x + v_panel_size_z*v_panel_size_z)}"  iyz="0.0"  
+                      izz="${0.083 * v_panel_mass * (v_panel_size_x*v_panel_size_x + v_panel_size_y*v_panel_size_y)}" />
+        </inertial>
+        
+        <collision>
+            <geometry>
+                <box size="${v_panel_size_x} ${v_panel_size_y} ${v_panel_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <visual>
+            <geometry>
+                <box size="${v_panel_size_x} ${v_panel_size_y} ${v_panel_size_z}"/>
+            </geometry>
+            <material name="box_color_rviz">
+                <color rgba="${r} ${g} ${b} ${a}"/>
+                <ambient>0 0 0 1</ambient>
+                <diffuse>0 0 0 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>0 0 0 1</emissive>
+            </material>
+        </visual>
+    </link>
+    
+    <gazebo reference="${v_panel_name}_link">
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
+        <kp>${kp}</kp>
+        <kd>${kd}</kd>	
+<!--        <visual>-->
+            <material>${gazebo_color}</material>
+<!--        </visual>-->
+    </gazebo>
+    
+    <joint name="${v_panel_name}_joint" type="fixed">
+      <parent link="${parent_link}"/>
+      <origin rpy="0 0 0" xyz="${pose_x} ${pose_y} ${pose_z}"/>
+      <child link="${v_panel_name}_link"/>
+    </joint>
+
+    
+<!-- ****************************  HORIZONTAL PANEL TOP  *******************************************************    -->
+    <xacro:if value="${h_top}">
+    <link name="${h_top_panel_name}_link">
+        <inertial>
+<!--            <origin xyz="${size_x/2} ${size_y/2} ${size_z/2}" />-->
+            <mass value="${h_panel_mass}" />
+            <inertia  ixx="${0.083 * h_panel_mass * (h_panel_size_y*h_panel_size_y + h_panel_size_z*h_panel_size_z)}" ixy="0.0"  ixz="0.0"  
+                      iyy="${0.083 * h_panel_mass * (h_panel_size_x*h_panel_size_x + h_panel_size_z*h_panel_size_z)}"  iyz="0.0"  
+                      izz="${0.083 * h_panel_mass * (h_panel_size_x*h_panel_size_x + h_panel_size_y*h_panel_size_y)}" />
+        </inertial>
+        
+        <collision>
+            <geometry>
+                <box size="${h_panel_size_x} ${h_panel_size_y} ${h_panel_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <visual>
+            <geometry>
+                <box size="${h_panel_size_x} ${h_panel_size_y} ${h_panel_size_z}"/>
+            </geometry>
+            <material name="box_color_rviz">
+                <color rgba="${r} ${g} ${b} ${a}"/>
+                <ambient>0 0 0 1</ambient>
+                <diffuse>0 0 0 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>0 0 0 1</emissive>
+            </material>
+        </visual>
+    </link>
+    
+    <joint name="${h_top_panel_name}_joint" type="fixed">
+      <parent link="${v_panel_name}_link"/>
+      <origin rpy="0 0 0" xyz="${ - (v_panel_size_x/2) - (h_panel_size_x/2)} ${0} ${v_panel_size_z/2 - h_panel_size_z/2}"/>
+      <child link="${h_top_panel_name}_link"/>
+    </joint>
+    
+    <gazebo reference="${h_top_panel_name}_link">
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
+        <kp>${kp}</kp>
+        <kd>${kd}</kd>	
+        <material>${gazebo_color}</material>
+    </gazebo>
+    
+    </xacro:if>
+    
+<!-- ****************************  HORIZONTAL PANEL BOTTOM  *******************************************************    -->
+    <xacro:if value="${h_bottom}">
+    <link name="${h_bottom_panel_name}_link">
+        <inertial>
+<!--            <origin xyz="${size_x/2} ${size_y/2} ${size_z/2}" />-->
+            <mass value="${h_panel_mass}" />
+            <inertia  ixx="${0.083 * h_panel_mass * (h_panel_size_y*h_panel_size_y + h_panel_size_z*h_panel_size_z)}" ixy="0.0"  ixz="0.0"  
+                      iyy="${0.083 * h_panel_mass * (h_panel_size_x*h_panel_size_x + h_panel_size_z*h_panel_size_z)}"  iyz="0.0"  
+                      izz="${0.083 * h_panel_mass * (h_panel_size_x*h_panel_size_x + h_panel_size_y*h_panel_size_y)}" />
+        </inertial>
+        
+        <collision>
+            <geometry>
+                <box size="${h_panel_size_x} ${h_panel_size_y} ${h_panel_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <visual>
+            <geometry>
+                <box size="${h_panel_size_x} ${h_panel_size_y} ${h_panel_size_z}"/>
+            </geometry>
+            <material name="box_color_rviz">
+                <color rgba="${r} ${g} ${b} ${a}"/>
+                <ambient>0 0 0 1</ambient>
+                <diffuse>0 0 0 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>0 0 0 1</emissive>
+            </material>
+        </visual>
+    </link>
+    <joint name="${h_bottom_panel_name}_joint" type="fixed">
+      <parent link="${v_panel_name}_link"/>
+      <origin rpy="0 0 0" xyz="${- (v_panel_size_x/2) - (h_panel_size_x/2)} 0 ${- (v_panel_size_z/2) + h_panel_size_z/2}"/>
+      <child link="${h_bottom_panel_name}_link"/>
+    </joint>
+    
+    <gazebo reference="${h_bottom_panel_name}_link">
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
+        <kp>${kp}</kp>
+        <kd>${kd}</kd>	
+        <material>${gazebo_color}</material>
+    </gazebo>
+    
+    </xacro:if>
+    
+</xacro:macro>
+</robot>
