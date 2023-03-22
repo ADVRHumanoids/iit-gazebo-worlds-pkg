@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    
+<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+       <arg name="world_name" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/worlds/world.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+<!--        <arg name="gui" value="true"/>-->
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+        <arg name="verbose" value="true"/>
+        <arg name="physics" value="ode"/>
+<!--   to record log, btw deprecated name now it is recording      -->
+<!--        <arg name="headless" default="false"/> -->
+    </include>
+    
+    
+    <!-- ***************************** OBJECTS   ********************************************************************************************** -->
+    <include file="$(find iit_gazebo_worlds_pkg)/arucoBoxes/launch/loaders/load_table_cubes.launch">
+        <arg name="pub_table_data" value="false" />
+        <arg name="pub_box_data" value="false" />
+    </include>
+    
+    <!-- unique node for this is better, so we put pub_xxx_data to false above -->
+    <node name="box_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen" 
+          args="--reference world --models table box1 box2 container --models_link surface box1 box2 container --ignore_roslaunch_added_param" />
+</launch>
+

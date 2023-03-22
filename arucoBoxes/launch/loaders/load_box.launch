@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+
+<!--  If change here, remeber also to change in the config files of xbot    -->
+    
+    <arg name="b_dim_x" default="0.1"/>
+    <arg name="b_dim_y" default="0.1"/>
+    <arg name="b_dim_z" default="0.1"/>
+    <arg name="b_mass" default="0.1"/>
+    <arg name="box_pose_x" default="0" />
+    <arg name="box_pose_y" default="0" />
+    <arg name="box_pose_z" default="0" />
+    <arg name="table_model_name" default=""/>
+
+    <arg name="pub_box_data" default="false"/>
+    <arg name="box_name" default="box"/>
+    
+    <!--     launch with a small delay just to be sure it will be spawned after (so. above) the table     -->
+    <node name="urdf_spawner_$(arg box_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg box_pose_x) -y $(arg box_pose_y) -z $(arg box_pose_z) -model $(arg box_name) -param gazebo/$(arg box_name)_description -wait $(arg table_model_name)" />
+    <!--           launch-prefix="bash -c 'sleep 2; $0 $@' "/>  --> <!-- now waiting for the table with -wait option -->
+
+    
+    <group if="$(arg pub_box_data)" >
+        <node name="$(arg box_name)_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen"
+          args="--reference world --models $(arg box_name) --models_link $(arg box_name)_link --ignore_roslaunch_added_param"/>
+    </group>
+    
+</launch>
