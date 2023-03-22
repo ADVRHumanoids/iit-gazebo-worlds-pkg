@@ -44,14 +44,14 @@
         
         <collision>
             <geometry>
-                <mesh filename="package://tpo_gazebo/meshes/container.stl" scale="${size_x} ${size_y} ${size_z}"/>
+                <mesh filename="package://iit_gazebo_worlds_pkg/arucoBoxes/meshes/container.stl" scale="${size_x} ${size_y} ${size_z}"/>
             </geometry>
         </collision>
         
         <visual>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0 0.0"/>
             <geometry>
-                <mesh filename="package://tpo_gazebo/meshes/container.stl" scale="${size_x} ${size_y} ${size_z}"/>
+                <mesh filename="package://iit_gazebo_worlds_pkg/arucoBoxes/meshes/container.stl" scale="${size_x} ${size_y} ${size_z}"/>
             </geometry>
         </visual>
     </link>

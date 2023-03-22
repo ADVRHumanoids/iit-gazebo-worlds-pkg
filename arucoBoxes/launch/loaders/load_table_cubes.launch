@@ -57,7 +57,7 @@
         <arg name="marker_pos" value="0"/>-->
     </include>
     
-    <arg name="xacroBox2" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/objects/box.urdf.xacro
+    <arg name="xacroBox2" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/box.urdf.xacro
            box_name:=box2
            mass:=$(arg b_mass) size_x:=$(arg b_dim_x) size_y:=$(arg b_dim_y) size_z:=$(arg b_dim_z) r:=1 g:=1 b:=0 a:=1 gazebo_color:=Gazebo/ZincYellow
            pose_x:=0 pose_y:=0 pose_z:=0
