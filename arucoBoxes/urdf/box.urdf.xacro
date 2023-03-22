@@ -121,8 +121,8 @@
         <visual name='visual'>
             <material>
                 <script>
-                    <uri>package://tpo_gazebo/urdf/objects/aruco_visual_marker_${marker_id}/materials/scripts</uri>
-                    <uri>package://tpo_gazebo/urdf/objects/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <uri>package://package://iit_gazebo_worlds_pkg/urdf/objects/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://package://iit_gazebo_worlds_pkg/urdf/objects/aruco_visual_marker_${marker_id}/materials/textures</uri>
                     <name>ArucoVisualMarker${marker_id}/Marker</name>
                 </script>
                 <ambient>1 1 1 1</ambient>
@@ -168,8 +168,8 @@
         <visual name='visual'>
             <material>
                 <script>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
                     <name>ArucoVisualMarker${marker_id}/Marker</name>
                 </script>
                 <ambient>1 1 1 1</ambient>
@@ -216,8 +216,8 @@
         <visual name='visual'>
             <material>
                 <script>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
                     <name>ArucoVisualMarker${marker_id}/Marker</name>
                 </script>
                 <ambient>1 1 1 1</ambient>
@@ -266,8 +266,8 @@
         <visual name='visual'>
             <material>
                 <script>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
-                    <uri>package://iit_gazebo_worlds_pkg)/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
                     <name>ArucoVisualMarker${marker_id}/Marker</name>
                 </script>
                 <ambient>1 1 1 1</ambient>
