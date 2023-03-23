@@ -19,7 +19,7 @@
     <xacro:arg name="markers" default="false"/>
     <xacro:arg name="marker_size" default="0.18"/>
     <xacro:arg name="marker_id" default="0"/>
-    <xacro:arg name="marker_pos" default="0"/>
+    <xacro:arg name="marker_pos" default="2"/>
     
     <xacro:property name="box_name" value="$(arg box_name)"/>
     <xacro:property name="size_x" value="$(arg size_x)"/>
