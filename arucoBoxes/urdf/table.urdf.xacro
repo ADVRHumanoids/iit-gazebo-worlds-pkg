@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="table">
 
-<!--   <xacro:arg name="box_name" default="box"/>-->
+    <xacro:arg name="surface_name" default="surface"/>
     <xacro:arg name="surface_size_x" default="0.8"/>
     <xacro:arg name="surface_size_y" default="1.5"/>
     <xacro:arg name="surface_size_z" default="0.03"/>
@@ -12,6 +12,12 @@
     <xacro:arg name="leg_gazebo_color" default="Gazebo/Gray"/>
     <xacro:arg name="kp" default="1e13"/>
     <xacro:arg name="kd" default="1"/>
+	
+    <!-- marker related -->	    
+    <xacro:arg name="markers" default="false"/>
+    <xacro:arg name="marker_size" default="0.18"/>
+    <xacro:arg name="marker_id" default="0"/>
+    <xacro:arg name="marker_pos" default="2"/>
     
     <xacro:property name="surface_size_x" value="$(arg surface_size_x)"/>
     <xacro:property name="surface_size_y" value="$(arg surface_size_y)"/>
@@ -23,7 +29,14 @@
     <xacro:property name="leg_gazebo_color" value="$(arg leg_gazebo_color)"/>
     <xacro:property name="kp" value="$(arg kp)"/>
     <xacro:property name="kd" value="$(arg kd)"/>
-
+    <xacro:property name="surface_name" value="$(arg surface_name)"/>
+    
+    <!-- marker related -->
+    <xacro:property name="markers" value="$(arg markers)"/>
+    <xacro:property name="marker_size" value="$(arg marker_size)"/>
+    <xacro:property name="marker_id" value="$(arg marker_id)"/>
+    <xacro:property name="marker_pos" value="$(arg marker_pos)"/>
+    
     <material name="${surface_gazebo_color}">
         <color rgba="1.0 1.0 1.0 1.0"/>
     </material>
@@ -33,7 +46,7 @@
     
     <origin rpy="0 0 0" xyz="0 0 ${surface_high}"/>
     
-    <link name="surface">
+    <link name="${surface_name}">
         <inertial>
             <mass value="${surface_mass}" />
             <inertia  ixx="${0.083 * surface_mass * (surface_size_y*surface_size_y + surface_size_z*surface_size_z)}" ixy="0.0"  ixz="0.0"  
@@ -55,7 +68,7 @@
         </visual>
     </link>
     
-    <gazebo reference="surface">
+    <gazebo reference="${surface_name}">
         <mu1>0.8</mu1>
         <mu2>0.8</mu2>
         <kp>${kp}</kp>
@@ -106,25 +119,177 @@
     
     <!-- JOINTS -->
     <joint name="front_left_leg_joint" type="fixed">
-        <parent link="surface"/>
+        <parent link="${surface_name}"/>
         <origin rpy="0.0 0.0 0.0" xyz="${surface_size_x/2 - 0.02} ${surface_size_y/2 - 0.02} ${-surface_high/2}"/>
         <child link="front_left_leg"/>
     </joint>
     <joint name="front_right_leg_joint" type="fixed">
-        <parent link="surface"/>
+        <parent link="${surface_name}"/>
         <origin rpy="0.0 0.0 0.0" xyz="${surface_size_x/2 - 0.02} ${-surface_size_y/2 + 0.02} ${-surface_high/2}"/>
         <child link="front_right_leg"/>
     </joint>
     <joint name="back_right_leg_joint" type="fixed">
-        <parent link="surface"/>
+        <parent link="${surface_name}"/>
         <origin rpy="0.0 0.0 0.0" xyz="${-surface_size_x/2 + 0.02} ${-surface_size_y/2 + 0.02} ${-surface_high/2}"/>
         <child link="back_right_leg"/>
     </joint>
     <joint name="back_left_leg_joint" type="fixed">
-        <parent link="surface"/>
+        <parent link="${surface_name}"/>
         <origin rpy="0.0 0.0 0.0" xyz="${-surface_size_x/2 + 0.02} ${surface_size_y/2 - 0.02} ${-surface_high/2}"/>
         <child link="back_left_leg"/>
     </joint>
+    
+    <!--  ********************************* Links for arucos **********************************************************  -->
+    <xacro:if value="${markers}">
+   
+    <xacro:if value="${marker_pos == 2}">
+    <!-- center -->
+    <link name="fiducial_${marker_id}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+        <material name="aruco_color_rviz">
+            <color rgba="0 0 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="aruco_front_joint" type="fixed">
+      <parent link="${surface_name}"/>
+      <origin xyz="0 0 ${surface_size_z/2 + 0.001}" rpy="0 0 0"/>
+      <child link="fiducial_${marker_id}"/>
+    </joint>
+    <gazebo reference="fiducial_${marker_id}">
+        <visual name='visual'>
+            <material>
+                <script>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <name>ArucoVisualMarker${marker_id}/Marker</name>
+                </script>
+                <ambient>1 1 1 1</ambient>
+                <diffuse>1 1 1 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>1 1 1 0</emissive>
+                <shader type='vertex'>
+                    <normal_map>__default__</normal_map>
+                </shader>
+                </material>
+            <cast_shadows>1</cast_shadows>
+            <transparency>0</transparency>
+        </visual>
+    </gazebo>
+    </xacro:if>
+
+    <!--north west-->
+    <xacro:if value="${marker_pos == 0}">
+    <link name="fiducial_${marker_id}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+        <material name="aruco_color_rviz">
+            <color rgba="0 0 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="aruco_nw_joint" type="fixed">
+      <parent link="${surface_name}"/>
+      <origin xyz="${-surface_size_x/2} ${surface_size_y/2 - marker_size/2} ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <child link="fiducial_${marker_id}"/>
+    </joint>
+    <gazebo reference="fiducial_${marker_id}">
+        <visual name='visual'>
+            <material>
+                <script>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <name>ArucoVisualMarker${marker_id}/Marker</name>
+                </script>
+                <ambient>1 1 1 1</ambient>
+                <diffuse>1 1 1 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>1 1 1 0</emissive>
+                <shader type='vertex'>
+                    <normal_map>__default__</normal_map>
+                </shader>
+            </material>
+            <cast_shadows>1</cast_shadows>
+            <transparency>0</transparency>
+        </visual>
+    </gazebo>
+    
+    </xacro:if>
+    
+    
+    <xacro:if value="${marker_pos == 1}">
+    <!--north center-->
+    <link name="fiducial_${marker_id}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+        <material name="aruco_color_rviz">
+            <color rgba="0 0 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+        <geometry>
+          <box size="${marker_size} ${marker_size} 1e-5"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="aruco_n_joint" type="fixed">
+      <parent link="${surface_name}"/>
+      <origin xyz="${-surface_size_x/2} 0 ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <child link="fiducial_${marker_id}"/>
+    </joint>
+    <gazebo reference="fiducial_${marker_id}">
+        <visual name='visual'>
+            <material>
+                <script>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/scripts</uri>
+                    <uri>package://iit_gazebo_worlds_pkg/arucoBoxes/urdf/aruco_visual_marker_${marker_id}/materials/textures</uri>
+                    <name>ArucoVisualMarker${marker_id}/Marker</name>
+                </script>
+                <ambient>1 1 1 1</ambient>
+                <diffuse>1 1 1 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>1 1 1 0</emissive>
+                <shader type='vertex'>
+                    <normal_map>__default__</normal_map>
+                </shader>
+            </material>
+            <cast_shadows>1</cast_shadows>
+            <transparency>0</transparency>
+        </visual>
+    </gazebo>
+    </xacro:if>
+    
+    
+    </xacro:if>
     
 
 </robot>
