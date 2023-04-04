@@ -9,19 +9,22 @@
     <arg name="t_pose_y" default="0"/>
     <arg name="t_pose_z" default="0"/>
     <arg name="t_high" default="0.8"/>
-    <arg name="b_dim_x" value="0.3"/>
-    <arg name="b_dim_y" value="0.3"/>
-    <arg name="b_dim_z" value="0.3"/>
-    <arg name="container_dim_x" value="0.2"/>
+    <arg name="b_dim_x" default="0.3"/>
+    <arg name="b_dim_y" default="0.3"/>
+    <arg name="b_dim_z" default="0.3"/>
+    <arg name="b_rel_pose_x" default="-0.324" />
+    <!--arg name="container_dim_x" value="0.2"/>
     <arg name="container_dim_y" value="0.12"/>
     <arg name="container_dim_z" value="0.06"/>
-    <arg name="container_mass" value="1"/>
-    <arg name="b_mass" value="0.1"/>
-    <arg name="table_model_name" value="table"/>
-    
+    <arg name="container_mass" value="1"/-->
+    <arg name="b_mass" default="0.1"/>
+    <arg name="table_model_name" default="table"/>
+    <arg name="box_marker" default="true"/>
+    <arg name="table_marker" default="false"/>
+        
     <!-- TABLE  -->
     <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/$(arg table_model_name).urdf.xacro 
-         surface_high:=$(arg t_high)" />
+         surface_high:=$(arg t_high) markers:=$(arg table_marker)" />
     <param name="gazebo/$(arg table_model_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />
     
     <include file="$(find iit_gazebo_worlds_pkg)/arucoBoxes/launch/loaders/load_table.launch">
@@ -34,7 +37,7 @@
 
     <!-- CUBES on table  -->
 <!--   0.8 is height of table   -->
-    <arg name="xacroBox1" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/box.urdf.xacro
+<!--    <arg name="xacroBox1" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/box.urdf.xacro
            box_name:=box1
            mass:=$(arg b_mass) size_x:=$(arg b_dim_x) size_y:=$(arg b_dim_y) size_z:=$(arg b_dim_z) r:=1 g:=1 b:=0 a:=1 gazebo_color:=Gazebo/ZincYellow
            pose_x:=0 pose_y:=0 pose_z:=0
@@ -42,7 +45,7 @@
     <param name="gazebo/box1_description" command="$(find xacro)/xacro $(arg xacroBox1)" />
     <include file="$(find iit_gazebo_worlds_pkg)/arucoBoxes/launch/loaders/load_box.launch">
         <arg name="box_name" value="box1"/>
-        <arg name="box_pose_x" value="$(eval t_pose_x - 0.320)" />
+        <arg name="box_pose_x" value="$(eval t_pose_x + b_rel_pose_x)" />
         <arg name="box_pose_y" value="$(eval t_pose_y + 0.5)" />
         <arg name="box_pose_z" value="$(eval t_high + b_dim_z/2 + 0.01)" />
         <arg name="pub_box_data" value="$(arg pub_box_data)"/>    
@@ -51,17 +54,17 @@
         <arg name="b_dim_z" value="$(arg b_dim_z)"/>
         <arg name="b_mass" value="$(arg b_mass)"/>
         <arg name="table_model_name" value="$(arg table_model_name)"/>
-    </include>
+    </include>-->
     
     <arg name="xacroBox2" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/box.urdf.xacro
            box_name:=box2
            mass:=$(arg b_mass) size_x:=$(arg b_dim_x) size_y:=$(arg b_dim_y) size_z:=$(arg b_dim_z) r:=1 g:=1 b:=0 a:=1 gazebo_color:=Gazebo/ZincYellow
            pose_x:=0 pose_y:=0 pose_z:=0
-           kp:=1000000 kd:=1 markers:=true" />
+           kp:=1000000 kd:=1 markers:=$(arg box_marker)" />
     <param name="gazebo/box2_description" command="$(find xacro)/xacro $(arg xacroBox2)" />
     <include file="$(find iit_gazebo_worlds_pkg)/arucoBoxes/launch/loaders/load_box.launch">
         <arg name="box_name" value="box2"/>
-        <arg name="box_pose_x" value="$(eval t_pose_x - 0.324)" />
+        <arg name="box_pose_x" value="$(eval t_pose_x + b_rel_pose_x)" />
         <arg name="box_pose_y" value="$(eval t_pose_y + 0)" />
         <arg name="box_pose_z" value="$(eval t_high + b_dim_z/2 + 0.01)" />
         <arg name="pub_box_data" value="$(arg pub_box_data)"/>    
@@ -91,7 +94,7 @@
         <arg name="table_model_name" value="$(arg table_model_name)"/>
     </include>-->
     
-    <arg name="xacroContainer" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/container.urdf.xacro
+<!--    <arg name="xacroContainer" value="$(find iit_gazebo_worlds_pkg)/arucoBoxes/urdf/container.urdf.xacro
            container_name:=container
            mass:=$(arg container_mass) size_x:=$(arg container_dim_x) size_y:=$(arg container_dim_y) size_z:=$(arg container_dim_z) r:=1 g:=1 b:=0 a:=1 gazebo_color:=Gazebo/White
            pose_x:=0 pose_y:=0 pose_z:=0
@@ -107,6 +110,6 @@
         <arg name="dim_z" value="$(arg container_dim_z)"/>
         <arg name="mass" value="$(arg container_mass)"/>
         <arg name="table_model_name" value="$(arg table_model_name)"/>
-    </include>
+    </include>-->
     
 </launch>
