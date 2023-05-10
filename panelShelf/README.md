@@ -7,8 +7,10 @@ Parametrized shelf panel to replicate the manipulation panel we have in the lab
 
 ### Description
 The entire shelf is a "matrix" of single panels. Each panel has always a "vertical" piece and two optional "horizontal" pieces on top and on bottom:
-![panel](./img/panel.png)
+
+![panel](./img/panel.png)  
 *here both optional are present*  
+
 number of single panels can be set as row-by-column
 
 Check the [xacro](./urdf/shelf.urdf.xacro) for descriptions about the parameters.  
