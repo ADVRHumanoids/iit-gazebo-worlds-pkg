@@ -1,6 +1,8 @@
 # ArucoBoxes
 
-Gazebo world with table, some boxes and even a container on the floor.
+Gazebo world with table, some boxes and even a container somewhere.
+
+![tablecube](./img/tableCube.png)
 
 ## Instructions
 Modify the files as necessary. It can be a bit a mess to understand but 
