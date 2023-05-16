@@ -2,8 +2,8 @@
 <launch>
 
     <arg name="table_name" default="table"/>
-    <arg name="pub_table_tf" default="true"/>
-    <arg name="pub_table_world_pose" default="true"/>
+    <arg name="pub_tf" default="true"/>
+    <arg name="pub_world_pose" default="true"/>
 
     <arg name="t_pose_x" default="0" />
     <arg name="t_pose_y" default="0" />
@@ -40,11 +40,11 @@
     <node name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description"/>
           
-    <node if="$(arg pub_table_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
+    <node if="$(arg pub_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
         <remap from="robot_description" to="gazebo/$(arg table_name)_description" />
     </node>
     
-    <node if="$(arg pub_table_world_pose)" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
+    <node if="$(arg pub_world_pose)" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
           args="--reference world --models $(arg table_name) --models_link surface --ignore_roslaunch_added_param"/>
     
 </launch>
