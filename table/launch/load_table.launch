@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="table_name" default="table"/>
+    <arg name="pub_table_tf" default="true"/>
+    <arg name="pub_table_world_pose" default="true"/>
+
+    <arg name="t_pose_x" default="0" />
+    <arg name="t_pose_y" default="0" />
+    <arg name="t_pose_z" default="0" />
+    
+    <arg name="surface_size_x" default="0.8"/>
+    <arg name="surface_size_y" default="1.5"/>
+    <arg name="surface_size_z" default="0.03"/>
+    <arg name="surface_high" default="0.8"/>
+    <arg name="surface_mass" default="30"/>
+    <arg name="leg_mass" default="2"/>
+    <arg name="surface_gazebo_color" default="Gazebo/Wood"/>
+    <arg name="leg_gazebo_color" default="Gazebo/Gray"/>
+    <arg name="kp" default="1e13"/>
+    <arg name="kd" default="1"/>
+    
+    
+    <!-- TABLE  -->
+    <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/table.urdf.xacro 
+         surface_size_x:=$(arg surface_size_x)
+         surface_size_y:=$(arg surface_size_y)
+         surface_size_z:=$(arg surface_size_z)
+         surface_high:=$(arg surface_high)
+		 surface_mass:=$(arg surface_mass)
+         leg_mass:=$(arg leg_mass)
+         surface_gazebo_color:=$(arg surface_gazebo_color)
+         leg_gazebo_color:=$(arg leg_gazebo_color)         
+         kp:=$(arg kp)         
+         kd:=$(arg kd)
+         "
+    />
+    <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />
+    
+    <node name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description"/>
+          
+    <node if="$(arg pub_table_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
+        <remap from="robot_description" to="gazebo/$(arg table_name)_description" />
+    </node>
+    
+    <node if="$(arg pub_table_world_pose)" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
+          args="--reference world --models $(arg table_name) --models_link surface --ignore_roslaunch_added_param"/>
+    
+</launch>
