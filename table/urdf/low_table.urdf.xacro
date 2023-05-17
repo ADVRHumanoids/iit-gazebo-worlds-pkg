@@ -12,7 +12,9 @@
     <xacro:arg name="leg_gazebo_color" default="Gazebo/Gray"/>
     <xacro:arg name="kp" default="1e13"/>
     <xacro:arg name="kd" default="1"/>
-    <xacro:arg name="markers" default="false"/>				<!-- marker related -->
+	
+    <!-- marker related -->	    
+    <xacro:arg name="markers" default="false"/>
     <xacro:arg name="marker_size" default="0.18"/>
     <xacro:arg name="marker_id" default="0"/>
     <xacro:arg name="marker_pos" default="2"/>
@@ -28,7 +30,9 @@
     <xacro:property name="kp" value="$(arg kp)"/>
     <xacro:property name="kd" value="$(arg kd)"/>
     <xacro:property name="surface_name" value="$(arg surface_name)"/>
-    <xacro:property name="markers" value="$(arg markers)"/>			<!-- marker related -->
+    
+    <!-- marker related -->
+    <xacro:property name="markers" value="$(arg markers)"/>
     <xacro:property name="marker_size" value="$(arg marker_size)"/>
     <xacro:property name="marker_id" value="$(arg marker_id)"/>
     <xacro:property name="marker_pos" value="$(arg marker_pos)"/>
