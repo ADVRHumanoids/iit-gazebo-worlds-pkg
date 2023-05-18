@@ -19,10 +19,10 @@
     <arg name="leg_gazebo_color" default="Gazebo/Gray"/>
     <arg name="kp" default="1e13"/>
     <arg name="kd" default="1"/>
-    
+    <arg name="markers" default="false"/>
     
     <!-- TABLE  -->
-    <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/table.urdf.xacro 
+    <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_name).urdf.xacro 
          surface_size_x:=$(arg surface_size_x)
          surface_size_y:=$(arg surface_size_y)
          surface_size_z:=$(arg surface_size_z)
@@ -33,6 +33,7 @@
          leg_gazebo_color:=$(arg leg_gazebo_color)         
          kp:=$(arg kp)         
          kd:=$(arg kd)
+         markers:=$(arg markers)
          "
     />
     <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />

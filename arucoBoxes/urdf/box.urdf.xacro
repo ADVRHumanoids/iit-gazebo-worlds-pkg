@@ -75,14 +75,14 @@
         <mu2>0.8</mu2>
         <kp>${kp}</kp>
         <kd>${kd}</kd>	
-<!--        <material>${gazebo_color}</material>-->
+        <material>${gazebo_color}</material>
         <visual>
-          <material>
+<!--          <material>
             <ambient> 0.9725 0.9529 0.2078 0.1</ambient>
             <diffuse> 0.9725 0.9529 0.2078 1</diffuse>
             <specular> 0.9725 0.9529 0.2078 0.1</specular>
             <emissive>0 0 0 0</emissive>
-          </material>
+          </material>-->
         </visual>
     </gazebo>
     
