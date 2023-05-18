@@ -2,6 +2,7 @@
 <launch>
 
     <arg name="table_name" default="table"/>
+    <arg name="table_urdf_name" default="$(arg table_name)"/>
     <arg name="pub_tf" default="true"/>
     <arg name="pub_world_pose" default="true"/>
 
@@ -22,7 +23,7 @@
     <arg name="markers" default="false"/>
     
     <!-- TABLE  -->
-    <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_name).urdf.xacro 
+    <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_urdf_name).urdf.xacro 
          surface_size_x:=$(arg surface_size_x)
          surface_size_y:=$(arg surface_size_y)
          surface_size_z:=$(arg surface_size_z)
