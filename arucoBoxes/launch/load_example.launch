@@ -1,7 +1,19 @@
 <?xml version="1.0"?>
 <launch>
 
-<!--  If change here, remeber also to change in the config files of xbot    -->
+<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+<!--        <arg name="gui" value="true"/>-->
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+        <arg name="verbose" value="true"/>
+        <arg name="physics" value="ode"/>
+<!--   to record log, btw deprecated name now it is recording      -->
+<!--        <arg name="headless" default="false"/> -->
+    </include>
     
     <arg name="pub_box_data" default="false"/>    
     <arg name="pub_table_data" default="false"/>   
@@ -76,5 +88,11 @@
         <arg name="mass" value="$(arg container_mass)"/>
         <arg name="table_model_name" value="$(arg table_model_name)"/>
     </include>-->
+    
+        <!-- unique node for this is better, so we put pub_xxx_data to false above -->
+    <COMMENT>
+    	<node name="box_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen" 
+          args="--reference world --models $(arg table_model_name) box2 container --models_link surface box1 box2 container --ignore_roslaunch_added_param" />
+    </COMMENT>
     
 </launch>
