@@ -23,7 +23,7 @@
     <arg name="box_marker" default="true"/>
     <arg name="table_marker" default="false"/>
         
-    <!-- TABLE  -->
+    <!-- TABLE  -->  
     <include file="$(find iit_gazebo_worlds_pkg)/table/launch/load_table.launch">
         <arg name="table_name" value="$(arg table_model_name)"/>
         <arg name="pub_tf" value="false"/>
@@ -33,7 +33,7 @@
         <arg name="t_pose_z" value="$(arg t_pose_z)"/>
         <arg name="surface_high" value="$(arg t_high)"/>
         <arg name="surface_gazebo_color" value="Gazebo/Gold"/>
-        <arg name="markers" value="table_marker"/>
+        <arg name="markers" value="$(arg table_marker)"/>
     </include>
 
     <!-- CUBES on table  -->
