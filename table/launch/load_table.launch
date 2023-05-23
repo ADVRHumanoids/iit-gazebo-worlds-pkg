@@ -44,6 +44,7 @@
           
     <node if="$(arg pub_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
         <remap from="robot_description" to="gazebo/$(arg table_name)_description" />
+        <remap from="joint_states" to="$(arg table_name)/joint_states" />
     </node>
     
     <node if="$(arg pub_world_pose)" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
