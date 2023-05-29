@@ -5,6 +5,7 @@
     <arg name="table_urdf_name" default="$(arg table_name)"/>
     <arg name="pub_tf" default="true"/>
     <arg name="pub_world_pose" default="true"/>
+    <arg name="spawn_gazebo" default="true"/>
 
     <arg name="t_pose_x" default="0" />
     <arg name="t_pose_y" default="0" />
@@ -21,6 +22,10 @@
     <arg name="kp" default="1e13"/>
     <arg name="kd" default="1"/>
     <arg name="markers" default="false"/>
+    <arg name="marker_size" default="0.18"/>
+    <arg name="marker_id" default="0"/>
+    <arg name="marker_pos" default="2"/>
+    <arg name="marker_thickness" default="0.001" doc="if the marker is printed on a thick surface (like a carboard piece) it will be not in line with the table surface but sliglty above. Use this arg for this measure"/>
     
     <!-- TABLE  -->
     <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_urdf_name).urdf.xacro 
@@ -39,7 +44,7 @@
     />
     <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />
     
-    <node name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    <node if="$(arg spawn_gazebo)" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description"/>
           
     <node if="$(arg pub_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
