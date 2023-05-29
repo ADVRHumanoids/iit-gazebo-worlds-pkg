@@ -18,6 +18,7 @@
     <xacro:arg name="marker_size" default="0.18"/>
     <xacro:arg name="marker_id" default="0"/>
     <xacro:arg name="marker_pos" default="2"/>
+    <xacro:arg name="marker_thickness" default="0.001"/>
     
     <xacro:property name="surface_size_x" value="$(arg surface_size_x)"/>
     <xacro:property name="surface_size_y" value="$(arg surface_size_y)"/>
@@ -36,7 +37,8 @@
     <xacro:property name="marker_size" value="$(arg marker_size)"/>
     <xacro:property name="marker_id" value="$(arg marker_id)"/>
     <xacro:property name="marker_pos" value="$(arg marker_pos)"/>
-    
+    <xacro:property name="marker_thickness" value="$(arg marker_thickness)"/>
+
     <material name="${surface_gazebo_color}">
         <color rgba="1.0 1.0 1.0 1.0"/>
     </material>
@@ -165,7 +167,7 @@
     </link>
     <joint name="aruco_front_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="0 0 ${surface_size_z/2 + 0.001}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${surface_size_z/2 + 1e-5 + marker_thickness}" rpy="0 0 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
@@ -213,7 +215,7 @@
     </link>
     <joint name="aruco_nw_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="${-surface_size_x/2} ${surface_size_y/2 - marker_size/2} ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <origin xyz="${-(surface_size_x/2 + 1e-5 + marker_thickness)} ${surface_size_y/2 - marker_size/2} ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
@@ -263,7 +265,7 @@
     </link>
     <joint name="aruco_n_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="${-surface_size_x/2} 0 ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <origin xyz="${-surface_size_x/2 + 1e-5 + marker_thickness} 0 ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
