@@ -40,6 +40,10 @@
          kp:=$(arg kp)         
          kd:=$(arg kd)
          markers:=$(arg markers)
+         marker_size:=$(arg marker_size)
+         marker_id:=$(arg marker_id)
+         marker_pos:=$(arg marker_pos)
+         marker_thickness:=$(arg marker_thickness)
          "
     />
     <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />
