@@ -78,6 +78,20 @@
         <material>${surface_gazebo_color}</material>
     </gazebo>
     
+    <link name="table_base_footprint"></link>
+    <joint name="table_base_footprint_joint" type="fixed">
+        <parent link="${surface_name}"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 ${-surface_high}"/>
+        <child link="table_base_footprint"/>
+    </joint>
+    
+    <link name="${surface_name}_top"></link>
+    <joint name="${surface_name}_top_joint" type="fixed">
+        <parent link="${surface_name}"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 ${surface_size_z/2}"/>
+        <child link="${surface_name}_top"/>
+    </joint>
+    
     
     <!-- LEGS -->
     <xacro:macro name="table_leg" params="name">
