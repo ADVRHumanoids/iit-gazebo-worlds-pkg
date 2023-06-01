@@ -18,7 +18,7 @@
     <xacro:arg name="marker_size" default="0.18"/>
     <xacro:arg name="marker_id" default="0"/>
     <xacro:arg name="marker_pos" default="2"/>
-    <xacro:arg name="marker_thickness" default="0.001"/>
+    <xacro:arg name="marker_thickness" default="0.00001"/>
     
     <xacro:property name="surface_size_x" value="$(arg surface_size_x)"/>
     <xacro:property name="surface_size_y" value="$(arg surface_size_y)"/>
@@ -46,7 +46,7 @@
         <color rgba=".3 .3 .3 1.0"/>
     </material>
     
-    <origin rpy="0 0 0" xyz="0 0 ${surface_high}"/>
+    <origin rpy="0 0 0" xyz="0 0 ${surface_high-surface_size_z/2}"/>
     
     <link name="${surface_name}">
         <inertial>
@@ -81,7 +81,7 @@
     <link name="table_base_footprint"></link>
     <joint name="table_base_footprint_joint" type="fixed">
         <parent link="${surface_name}"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0 0 ${-surface_high}"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 ${-surface_high+(surface_size_z/2)}"/>
         <child link="table_base_footprint"/>
     </joint>
     
@@ -92,28 +92,27 @@
         <child link="${surface_name}_top"/>
     </joint>
     
-    
     <!-- LEGS -->
     <xacro:macro name="table_leg" params="name">
     <link name="${name}">
     
         <inertial>
             <mass value="${leg_mass}" />
-            <inertia    ixx="${0.083 * leg_mass * (3*0.02*0.02 + surface_high*surface_high)}"  ixy="0.0"  ixz="0.0"  
-                        iyy="${0.083 * leg_mass * (3*0.02*0.02 + surface_high*surface_high)}"  iyz="0.0"  
+            <inertia    ixx="${0.083 * leg_mass * (3*0.02*0.02 + (surface_high - surface_size_z)*(surface_high - surface_size_z))}"  ixy="0.0"  ixz="0.0"  
+                        iyy="${0.083 * leg_mass * (3*0.02*0.02 + (surface_high - surface_size_z)*(surface_high - surface_size_z))}"  iyz="0.0"  
                         izz="${0.5 * leg_mass * 0.02 * 0.02}" />
         </inertial>
 
         <collision>
             <geometry>
-                <cylinder radius="0.02" length="${surface_high}"/>
+                <cylinder radius="0.02" length="${surface_high - surface_size_z}"/>
             </geometry>
         </collision>
         
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <cylinder radius="0.02" length="${surface_high}"/>
+                <cylinder radius="0.02" length="${surface_high - surface_size_z}"/>
             </geometry>
             <material name="${leg_gazebo_color}"/>
         </visual>
@@ -162,26 +161,26 @@
     <!-- center -->
     <link name="fiducial_${marker_id}">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 ${-marker_thickness/2}" rpy="0 0 0" />
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
         <material name="aruco_color_rviz">
             <color rgba="0 0 0 1"/>
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 ${-marker_thickness/2}" rpy="0 0 0" />
         <laser_retro>0</laser_retro>
         <max_contacts>10</max_contacts>
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
       </collision>
     </link>
     <joint name="aruco_front_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="0 0 ${surface_size_z/2 + 1e-5 + marker_thickness}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${surface_size_z/2 + marker_thickness}" rpy="0 0 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
@@ -212,7 +211,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
         <material name="aruco_color_rviz">
             <color rgba="0 0 0 1"/>
@@ -223,13 +222,13 @@
         <laser_retro>0</laser_retro>
         <max_contacts>10</max_contacts>
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
       </collision>
     </link>
     <joint name="aruco_nw_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="${-(surface_size_x/2 + 1e-5 + marker_thickness)} ${surface_size_y/2 - marker_size/2} ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <origin xyz="${-(surface_size_x/2 + marker_thickness/2)} ${surface_size_y/2 - marker_size/2} ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
@@ -262,7 +261,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
         <material name="aruco_color_rviz">
             <color rgba="0 0 0 1"/>
@@ -273,13 +272,13 @@
         <laser_retro>0</laser_retro>
         <max_contacts>10</max_contacts>
         <geometry>
-          <box size="${marker_size} ${marker_size} 1e-5"/>
+          <box size="${marker_size} ${marker_size} ${marker_thickness}"/>
         </geometry>
       </collision>
     </link>
     <joint name="aruco_n_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="${-surface_size_x/2 + 1e-5 + marker_thickness} 0 ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
+      <origin xyz="${-surface_size_x/2 + marker_thickness} 0 ${surface_size_z/2 - marker_size/2}" rpy="0 1.5708 0"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
