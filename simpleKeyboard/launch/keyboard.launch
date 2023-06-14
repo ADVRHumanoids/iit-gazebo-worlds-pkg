@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}] [${function}] [${line}]: ${message}"/>
+
+            
+    <include file="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/launch/load_keyboard.launch"></include>
+    
+    <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find iit_gazebo_worlds_pkg)/simpleKeyboard/config/keyboard.rviz">
+    </node> 
+    
+
+
+
+</launch>

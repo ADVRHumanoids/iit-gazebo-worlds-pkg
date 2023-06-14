@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="keyboard">
+
+    <xacro:include filename="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/urdf/properties.urdf.xacro" />
+
+    <xacro:macro name="simple_keyboard" params="parent *origin">
+        
+    <link name="${keyboard_name}_base_link"/>
+    <joint name="${keyboard_name}_base_joint" type="fixed">
+        <parent link="${parent}"/>
+        <xacro:insert_block name="origin"/>
+        <child link="${keyboard_name}_base_link"/>
+    </joint>
+    
+    <!--  Loop in xacro!    -->
+    <xacro:macro name="keys_loop" params="indexes:=^">
+        <xacro:if value="${indexes}">
+            <!-- pop first item from list -->
+            <xacro:property name="index" value="${indexes.pop(0)}"/>
+
+            <!-- // is python "integer division"  -->
+            <xacro:property name="i_row" value="${index // keyboard_cols }"/>
+            <xacro:property name="i_col" value="${index % keyboard_cols }"/>
+            
+            <link name="${key_names[index]}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                <box size="${key_size_x} ${key_size_y} ${key_size_z}"/>
+                </geometry>
+                <material name="${key_colors[index]}"></material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                <box size="${key_size_x} ${key_size_y} ${key_size_z}"/>
+                </geometry>
+            </collision>
+            </link>
+            
+            <joint name="${key_names[index]}_joint" type="fixed">
+                <parent link="${keyboard_name}_base_link"/>
+                <origin rpy="0.0 0.0 0.0" xyz="${top_right_corner_x - (key_size_x/2) - (key_size_x * i_row)} ${top_right_corner_y - (key_size_y/2) - (key_size_y * i_col)} 0"/>
+                <child link="${key_names[index]}_link"/>
+            </joint>
+            
+            <gazebo reference="${key_names[index]}_link">
+                <mu1>0.8</mu1>
+                <mu2>0.8</mu2>
+                <kp>${kp}</kp>
+                <kd>${kd}</kd>	
+                <material>${key_colors_gazebo[index]}</material>
+            </gazebo>
+
+            <!-- recursively call myself -->
+            <xacro:keys_loop/>
+        </xacro:if>
+    </xacro:macro>
+    
+    <!-- calling the macro loop -->
+    <xacro:property name="indexes" value="${list(python.range(0, keyboard_rows*keyboard_cols))}"/>
+    <xacro:keys_loop indexes="${list(indexes)}"/>
+    
+   </xacro:macro>
+
+</robot>
+

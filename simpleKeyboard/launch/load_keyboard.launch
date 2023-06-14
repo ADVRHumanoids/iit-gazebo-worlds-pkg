@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="name" default="keyboard"/>
+
+    <arg name="pub_tf" default="true"/>
+    <arg name="pub_world_pose" default="false"/>
+    <arg name="spawn_gazebo" default="false"/>
+    
+    <arg name="parent" default="world"/>
+    <arg name="pose_x" default="0" />
+    <arg name="pose_y" default="0" />
+    <arg name="pose_z" default="0" />
+    
+    <arg name="key_size_x" default="0.1"/>
+    <arg name="key_size_y" default="0.1"/>
+    <arg name="key_size_z" default="0.001"/>
+    <arg name="keyboard_rows" default="2"/>
+    <arg name="keyboard_cols" default="3"/>
+    <arg name="kp" default="1e13"/>
+    <arg name="kd" default="1"/>
+	    
+    
+    <!-- TABLE  -->
+    <arg name="xacroKeyboard" value="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/urdf/keyboard.urdf.xacro 
+         key_size_x:=$(arg key_size_x)
+         key_size_y:=$(arg key_size_y)
+         key_size_z:=$(arg key_size_z)
+         keyboard_rows:=$(arg keyboard_rows)
+		 keyboard_cols:=$(arg keyboard_cols)
+         kp:=$(arg kp)         
+         kd:=$(arg kd)
+         "
+    />
+    <param name="gazebo/$(arg name)_description" command="$(find xacro)/xacro $(arg xacroKeyboard)" />
+    
+    <node if="$(arg spawn_gazebo)" name="urdf_spawner_$(arg name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description"/>
+          
+    <node if="$(arg pub_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg name)_rsp" >
+        <remap from="robot_description" to="gazebo/$(arg name)_description" />
+        <remap from="joint_states" to="$(arg name)/joint_states" />
+    </node>
+    
+    <node if="$(arg pub_world_pose)" name="$(arg name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
+          args="--reference world --models $(arg name) --models_link $(arg name)_base_link --ignore_roslaunch_added_param"/>
+    
+</launch>

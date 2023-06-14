@@ -20,6 +20,13 @@
     <xacro:arg name="marker_pos" default="2"/>
     <xacro:arg name="marker_thickness" default="0.00001"/>
     
+<!--   keyboard on top the table   -->
+    <xacro:arg name="keyboard" default="false"/>
+    <xacro:arg name="keyboard_parent" default="surface_top"/>
+    <xacro:arg name="keyboard_x" default="0"/>
+    <xacro:arg name="keyboard_y" default="0"/>
+    <xacro:arg name="keyboard_z" default="0"/>
+
     <xacro:property name="surface_size_x" value="$(arg surface_size_x)"/>
     <xacro:property name="surface_size_y" value="$(arg surface_size_y)"/>
     <xacro:property name="surface_size_z" value="$(arg surface_size_z)"/>
@@ -38,6 +45,14 @@
     <xacro:property name="marker_id" value="$(arg marker_id)"/>
     <xacro:property name="marker_pos" value="$(arg marker_pos)"/>
     <xacro:property name="marker_thickness" value="$(arg marker_thickness)"/>
+    
+    <!-- keyboard related -->
+    <xacro:property name="keyboard" value="$(arg keyboard)"/>
+    <xacro:property name="keyboard_parent" value="$(arg keyboard_parent)"/>
+    <xacro:property name="keyboard_x" value="$(arg keyboard_x)"/>
+    <xacro:property name="keyboard_y" value="$(arg keyboard_y)"/>
+    <xacro:property name="keyboard_z" value="$(arg keyboard_z)"/>
+
 
     <material name="${surface_gazebo_color}">
         <color rgba="1.0 1.0 1.0 1.0"/>
@@ -153,6 +168,15 @@
         <origin rpy="0.0 0.0 0.0" xyz="${-surface_size_x/2 + 0.02} ${surface_size_y/2 - 0.02} ${-surface_high/2}"/>
         <child link="back_left_leg"/>
     </joint>
+    
+        <!--   KEYBOARD   -->
+    <xacro:if value="${keyboard}">
+        <xacro:include filename="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/urdf/keyboard_macro.urdf.xacro" />
+        <xacro:simple_keyboard parent="surface_top">
+            <origin xyz="${keyboard_x} ${keyboard_y} ${keyboard_z}" rpy="0 0 0" />
+        </xacro:simple_keyboard>
+    </xacro:if>
+
     
     <!--  ********************************* Links for arucos **********************************************************  -->
     <xacro:if value="${markers}">

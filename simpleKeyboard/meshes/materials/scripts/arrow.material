@@ -1,0 +1,13 @@
+material simpleKeyboard/Arrow
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture arrow.png
+			}
+		}
+	}
+}

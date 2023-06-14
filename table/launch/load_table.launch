@@ -27,6 +27,12 @@
     <arg name="marker_pos" default="2"/>
     <arg name="marker_thickness" default="0.001" doc="if the marker is printed on a thick surface (like a carboard piece) it will be not in line with the table surface but sliglty above. Use this arg for this measure"/>
     
+    <arg name="keyboard" default="false"/>
+    <arg name="keyboard_parent" default="surface_top"/>
+    <arg name="keyboard_x" default="0"/>
+    <arg name="keyboard_y" default="0"/>
+    <arg name="keyboard_z" default="0"/>
+    
     <!-- TABLE  -->
     <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_urdf_name).urdf.xacro 
          surface_size_x:=$(arg surface_size_x)
@@ -44,6 +50,11 @@
          marker_id:=$(arg marker_id)
          marker_pos:=$(arg marker_pos)
          marker_thickness:=$(arg marker_thickness)
+         keyboard:=$(arg keyboard)
+         keyboard_parent:=$(arg keyboard_parent)
+         keyboard_x:=$(arg keyboard_x)
+         keyboard_y:=$(arg keyboard_y)
+         keyboard_z:=$(arg keyboard_z)
          "
     />
     <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />

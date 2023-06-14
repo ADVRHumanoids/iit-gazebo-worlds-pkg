@@ -1,0 +1,38 @@
+<!--<?xml version="1.0"?>-->
+<robot  xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:property name="keyboard_name" value="keyboard"/>
+    <xacro:property name="key_size_x" value="0.1"/>
+    <xacro:property name="key_size_y" value="0.1"/>
+    <xacro:property name="key_size_z" value="0.001"/>
+    <xacro:property name="keyboard_rows" value="2"/>
+    <xacro:property name="keyboard_cols" value="3"/>
+    <xacro:property name="kp" value="1e13"/>
+    <xacro:property name="kd" value="1"/>
+    
+    <xacro:property name="key_names"        value="${['z_neg',    'x_pos',      'z_pos',      'y_pos',       'x_neg',    'y_neg']}" />
+    <xacro:property name="key_colors"       value="${['dark_blue', 'light_red', 'light_blue', 'light_green', 'dark_red', 'dark_green']}" />
+    <xacro:property name="key_colors_gazebo"       value="${['Gazebo/Blue', 'Gazebo/Red', 'Gazebo/Blue', 'Gazebo/Green', 'Gazebo/Red', 'Gazebo/Green']}" />
+
+    <xacro:property name="top_right_corner_x" value="${keyboard_rows/2 * key_size_x}"/>
+    <xacro:property name="top_right_corner_y" value="${keyboard_cols/2 * key_size_y}"/>
+    
+    <material name="light_red">
+        <color rgba="1.0 0.0 0.0 1"/>
+    </material>
+    <material name="dark_red">
+        <color rgba="0.5 0.0 0.0 1"/>
+    </material>
+    <material name="light_green">
+        <color rgba="0.0 1.0 0.0 1"/>
+    </material>
+    <material name="dark_green">
+        <color rgba="0.0 0.5 0.0 1"/>
+    </material>
+    <material name="light_blue">
+        <color rgba="0.0 0.0 1.0 1"/>
+    </material>
+    <material name="dark_blue">
+        <color rgba="0.0 0.0 0.5 1"/>
+    </material>
+</robot>
