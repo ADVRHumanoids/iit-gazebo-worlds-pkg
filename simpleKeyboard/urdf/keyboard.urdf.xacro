@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="keyboard">
     <xacro:include filename="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/urdf/keyboard_macro.urdf.xacro" />
-    <xacro:include filename="$(find iit_gazebo_worlds_pkg)/simpleKeyboard/urdf/properties.urdf.xacro" />
         
     <link name="world"></link>
     

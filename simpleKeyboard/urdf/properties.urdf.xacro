@@ -11,7 +11,8 @@
     <xacro:property name="kd" value="1"/>
     
     <xacro:property name="key_names"        value="${['z_neg',    'x_pos',      'z_pos',      'y_pos',       'x_neg',    'y_neg']}" />
-    <xacro:property name="key_colors"       value="${['dark_blue', 'light_red', 'light_blue', 'light_green', 'dark_red', 'dark_green']}" />
+<!--    <xacro:property name="key_colors"       value="${['dark_blue', 'light_red', 'light_blue', 'light_green', 'dark_red', 'dark_green']}" />-->
+    <xacro:property name="key_colors"       value="${['white', 'white', 'white', 'white', 'white', 'white']}" />
     <xacro:property name="key_colors_gazebo"       value="${['Gazebo/Blue', 'Gazebo/Red', 'Gazebo/Blue', 'Gazebo/Green', 'Gazebo/Red', 'Gazebo/Green']}" />
 
     <xacro:property name="top_right_corner_x" value="${keyboard_rows/2 * key_size_x}"/>
@@ -34,5 +35,11 @@
     </material>
     <material name="dark_blue">
         <color rgba="0.0 0.0 0.5 1"/>
+    </material>
+    <material name="trasparent">
+        <color rgba="0.0 0.0 0.0 0"/>
+    </material>
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1"/>
     </material>
 </robot>
