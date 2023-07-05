@@ -165,7 +165,7 @@
     </link>
     <joint name="aruco_front_joint" type="fixed">
       <parent link="${surface_name}"/>
-      <origin xyz="0 0 ${surface_size_z/2 + 0.001}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${surface_size_z/2 + 0.001}" rpy="0 0 1.57"/>
       <child link="fiducial_${marker_id}"/>
     </joint>
     <gazebo reference="fiducial_${marker_id}">
