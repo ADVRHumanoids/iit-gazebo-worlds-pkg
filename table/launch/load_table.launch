@@ -32,6 +32,12 @@
     <arg name="keyboard_x" default="0"/>
     <arg name="keyboard_y" default="0"/>
     <arg name="keyboard_z" default="0"/>
+    <arg name="key_size_x" default="0.1"/>
+    <arg name="key_size_y" default="0.1"/>
+    <arg name="key_size_z" default="0.0001"/>
+    <arg name="keyboard_rows" default="3"/>
+    <arg name="keyboard_cols" default="3"/>
+
     
     <!-- TABLE  -->
     <arg name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(arg table_urdf_name).urdf.xacro 
@@ -51,6 +57,11 @@
          marker_pos:=$(arg marker_pos)
          marker_thickness:=$(arg marker_thickness)
          keyboard:=$(arg keyboard)
+         key_size_x:=$(arg key_size_x)
+         key_size_y:=$(arg key_size_y)
+         key_size_z:=$(arg key_size_z)
+         keyboard_rows:=$(arg keyboard_rows)
+         keyboard_cols:=$(arg keyboard_cols)
          keyboard_parent:=$(arg keyboard_parent)
          keyboard_x:=$(arg keyboard_x)
          keyboard_y:=$(arg keyboard_y)

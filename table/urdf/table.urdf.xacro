@@ -22,6 +22,11 @@
     
 <!--   keyboard on top the table   -->
     <xacro:arg name="keyboard" default="false"/>
+    <xacro:arg name="key_size_x" default="0.1"/>
+    <xacro:arg name="key_size_y" default="0.1"/>
+    <xacro:arg name="key_size_z" default="0.0001"/>
+    <xacro:arg name="keyboard_rows" default="3"/>
+    <xacro:arg name="keyboard_cols" default="3"/>
     <xacro:arg name="keyboard_parent" default="surface_top"/>
     <xacro:arg name="keyboard_x" default="0"/>
     <xacro:arg name="keyboard_y" default="0"/>
@@ -48,6 +53,11 @@
     
     <!-- keyboard related -->
     <xacro:property name="keyboard" value="$(arg keyboard)"/>
+    <xacro:property name="key_size_x" value="$(arg key_size_x)"/>
+    <xacro:property name="key_size_y" value="$(arg key_size_y)"/>
+    <xacro:property name="key_size_z" value="$(arg key_size_z)"/>
+    <xacro:property name="keyboard_rows" value="$(arg keyboard_rows)"/>
+    <xacro:property name="keyboard_cols" value="$(arg keyboard_cols)"/>
     <xacro:property name="keyboard_parent" value="$(arg keyboard_parent)"/>
     <xacro:property name="keyboard_x" value="$(arg keyboard_x)"/>
     <xacro:property name="keyboard_y" value="$(arg keyboard_y)"/>
