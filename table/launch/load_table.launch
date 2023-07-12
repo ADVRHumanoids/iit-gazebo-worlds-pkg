@@ -3,6 +3,7 @@
 
     <arg name="table_name" default="table"/>
     <arg name="table_urdf_name" default="$(arg table_name)"/>
+    <arg name="parent" default="world" />
     <arg name="pub_tf" default="true"/>
     <arg name="pub_world_pose" default="true"/>
     <arg name="spawn_gazebo" default="true"/>
@@ -78,7 +79,9 @@
         <remap from="joint_states" to="$(arg table_name)/joint_states" />
     </node>
     
-    <node if="$(arg pub_world_pose)" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
+    <node if="$(eval arg('spawn_gazebo') and arg('pub_world_pose'))" name="$(arg table_name)_pose_gazebo_to_tf" pkg="tpo_gazebo" type="pose_gazebo_to_tf.py" output="screen"
           args="--reference world --models $(arg table_name) --models_link surface --ignore_roslaunch_added_param"/>
+    <node if="$(eval (not spawn_gazebo) and pub_world_pose)" name="$(arg table_name)_static_tf_pub" pkg="tf2_ros" type="static_transform_publisher" output="screen"
+        args="$(arg t_pose_x) $(arg t_pose_y) $(arg t_pose_z) 0 0 0 1 $(arg parent) surface"/>
     
 </launch>
