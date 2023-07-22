@@ -17,7 +17,7 @@
     <xacro:property name="kp" value="1e13"/>
     <xacro:property name="kd" value="1"/>
     
-    <xacro:property name="key_names"        value="${['z_neg',    'x_pos',      'z_pos',      'y_pos',       'x_neg',    'y_neg', 'yaw_pos', 'yaw_neg', 'stop' ,'open_gripper', 'close_gripper', 'none']}" />
+    <xacro:property name="key_names"        value="${['none_0', 'yaw_pos', 'yaw_neg', 'z_neg', 'x_pos',  'z_pos',  'y_pos',  'x_neg', 'y_neg', 'none_9','open_gripper', 'close_gripper']}" />
 <!--    <xacro:property name="key_colors"       value="${['dark_blue', 'light_red', 'light_blue', 'light_green', 'dark_red', 'dark_green']}" />-->
     <xacro:property name="key_colors"       value="${['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']}" />
     <xacro:property name="key_colors_gazebo"       value="${['Gazebo/Blue', 'Gazebo/Red', 'Gazebo/Blue', 'Gazebo/Green', 'Gazebo/Red', 'Gazebo/Green', 'Gazebo/Blue', 'Gazebo/Blue', 'Gazebo/FlatBlack', 'Gazebo/DarkGrey', 'Gazebo/DarkGrey', 'Gazebo/FlatBlack']}" />
