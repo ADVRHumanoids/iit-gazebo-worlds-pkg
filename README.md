@@ -43,7 +43,7 @@ where changing the params _x_, _y_, _z_, _roll_, _pitch_ and _yaw_ you can chang
 
 ## Objects
 Objects inside 3DGems are taken from https://data.nvision2.eecs.yorku.ca/3DGEMS/, with sdf modified for easy spawning. Check the util launch `3DGems/object.launch`
-A lot of them require some fixing/testing (like inertial) so feel free to fix them ;)
+A lot of them require some fixing/testing (like inertial, and fixed joints for models with more links) so feel free to fix them ;). One nice tool to find inertia of dae: https://github.com/vonunwerth/MeshLabInertiaToURDF
 
 ## To Contribute
 

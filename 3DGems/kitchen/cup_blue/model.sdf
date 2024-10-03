@@ -23,6 +23,18 @@
         <cast_shadows>1</cast_shadows>
         <transparency>0</transparency>
       </visual>
+      <inertial>
+        <mass>0.200</mass>
+        <pose>-0.01084486 -0.01047124 0.05353970 0 0 0</pose>
+        <inertia>
+          <ixx>0.00025017</ixx>
+          <ixy>0</ixy>
+          <ixz>0.00000515</ixz>
+          <iyy>0.00031712</iyy>
+          <iyz>0</iyz>
+          <izz>0.00020548</izz>
+        </inertia>
+      </inertial>
       <collision name='collision'>
         <laser_retro>0</laser_retro>
         <max_contacts>10</max_contacts>
