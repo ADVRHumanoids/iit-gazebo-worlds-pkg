@@ -3,11 +3,12 @@
   <name>iit_gazebo_worlds_pkg</name>
   <version>1.0.0</version>
   <description>
-    iit_gazebo_worlds_pkg is a collection of gazebo worlds useful for simulations.
+    iit_gazebo_worlds_pkg is a collection of gazebo worlds and models useful for simulations.
   </description>
   <license>Apache 2.0</license>
-  <author email="liana.bertoni@iit.it">HHCM</author>
+  <author email="liana.bertoni@iit.it">liana</author>
   <maintainer email="liana.bertoni@iit.it">liana</maintainer>
+  <maintainer email="davide.torielli@iit.it">Davide Torielli</maintainer>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo</exec_depend>
