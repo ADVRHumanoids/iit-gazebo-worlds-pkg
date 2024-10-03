@@ -1,12 +1,13 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='donut_frost_3'>
+  <model name='donut_frost_3' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_7'>
        <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_bread.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_bread.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -33,7 +34,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_bread.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_bread.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -45,7 +46,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_frost.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_frost.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -72,7 +73,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_frost.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_frost.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -83,7 +84,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_dust.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_dust.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -110,13 +111,13 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_frost_3/meshes/donut2_dust.dae</uri>
+            <uri>$(arg path)/donut_frost_3/meshes/donut2_dust.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

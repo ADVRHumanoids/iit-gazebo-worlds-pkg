@@ -1,12 +1,13 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='cup_glass_hex'>
+  <model name='cup_glass_hex' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_17'>
        <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_glass_hex/meshes/cup_glass2.dae</uri>
+            <uri>$(arg path)/cup_glass_hex/meshes/cup_glass2.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -28,13 +29,13 @@
         <max_contacts>10</max_contacts>
          <geometry>
           <mesh>
-            <uri>model://cup_glass_hex/meshes/cup_glass2.dae</uri>
+            <uri>$(arg path)/cup_glass_hex/meshes/cup_glass2.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
       </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

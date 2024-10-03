@@ -1,6 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='coffee_box'>
+  <model name='coffee_box' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_0'>
          <visual name='visual'>
         <pose frame=''>0 0 0.06 0 -0 0</pose>
@@ -12,8 +13,8 @@
         </geometry>
       <material>
           <script>
-            <uri>model://coffee_box/materials/scripts</uri>
-            <uri>model://coffee_box/materials/textures</uri>
+            <uri>$(arg path)/coffee_box/materials/scripts</uri>
+            <uri>$(arg path)/coffee_box/materials/textures</uri>
             <name>coffee_pat</name>
           </script>
         </material>
@@ -32,7 +33,7 @@
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

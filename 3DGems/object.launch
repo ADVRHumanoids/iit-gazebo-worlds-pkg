@@ -1,20 +1,22 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="name"/>
-    <arg name="category"/>
-    <arg name="model_sdf_name" default="$(arg name)"/>
+    <arg name="name" doc="name in the gazebo world, must be unique"/>
+    <arg name="category" doc="the name of the folder categroy (eg food or kitchen)"/>
+    <arg name="model_sdf_name" default="$(arg name)" doc="the folder name of the object inside the category folder"/>
 
     <arg name="pose_x" default="0" />
     <arg name="pose_y" default="0" />
     <arg name="pose_z" default="0" />
-    <arg name="model_to_wait_name" default=""/>
+    <arg name="model_to_wait_name" default="" doc="if not empty, wait for this model before loading"/>
 
     <arg name="pub_tf" default="false"/>
-    <arg name="model_link" default=""/>
+    <arg name="model_link" default="" doc="if pub_tf true, this is necessary to publish the tf. The name is the first link of the object, check its sdf"/>
 
     <arg name="path" value="$(find iit_gazebo_worlds_pkg)/3DGems/$(arg category)" />
 
+    <!--  To not use the package::// or model:// syntax of sdf, this is the only way I found. all sdf are in truth xacro that are parsed
+         substituing this path   -->
     <arg name="xacroObject" value="$(arg path)/$(arg model_sdf_name)/model.sdf path:=$(arg path)"/>
 
     <param name="gazebo/$(arg name)_description" command="$(find xacro)/xacro $(arg xacroObject)" />

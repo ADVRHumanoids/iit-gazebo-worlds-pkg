@@ -1,14 +1,13 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='donut_1' xmlns:xacro="http://ros.org/wiki/xacro">
-      <xacro:arg name="path" default=""/>
-
+    <xacro:arg name="path" default=""/>
     <link name='link_6'>
        <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://donut_1/meshes/donut1.dae</uri>
+            <uri>$(arg path)/donut_1/meshes/donut1.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -41,7 +40,7 @@
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

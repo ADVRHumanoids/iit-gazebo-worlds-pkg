@@ -1,12 +1,13 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='plate_1'>
+  <model name='plate_1' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_10'>
        <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://plate_1/meshes/plate_1_body.dae</uri>
+            <uri>$(arg path)/plate_1/meshes/plate_1_body.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -33,7 +34,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://plate_1/meshes/plate_1_body.dae</uri>
+            <uri>$(arg path)/plate_1/meshes/plate_1_body.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -44,7 +45,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://plate_1/meshes/plate_1_line.dae</uri>
+            <uri>$(arg path)/plate_1/meshes/plate_1_line.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -68,13 +69,13 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://plate_1/meshes/plate_1_line.dae</uri>
+            <uri>$(arg path)/plate_1/meshes/plate_1_line.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

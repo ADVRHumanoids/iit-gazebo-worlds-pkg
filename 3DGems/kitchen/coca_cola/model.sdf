@@ -1,9 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <model name="coca_cola" xmlns:xacro="http://ros.org/wiki/xacro">
-  
     <xacro:arg name="path" default=""/>
-  
     <link name="link">
 	 <pose>0 0 0.115 0 0 0</pose>
       <inertial>
@@ -28,11 +26,12 @@
 	<visual name="bodyMesh">
 	<geometry>
 	  <mesh>
-	    <uri>$(arg path)/meshes/coke.dae</uri>
+	    <uri>$(arg path)/coca_cola/meshes/coke.dae</uri>
 	  	<scale>1 1 1</scale>
 	  </mesh>
 	  </geometry>
 	</visual>
     </link>
+    <allow_auto_disable>1</allow_auto_disable>
  </model>
 </sdf>

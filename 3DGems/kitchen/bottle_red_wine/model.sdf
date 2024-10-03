@@ -1,13 +1,14 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='bottle_red_wine'>
+  <model name='bottle_red_wine' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_22'>
       <pose frame=''>-0.038814 -0.033806 0.002754 0 -0 0</pose>
         <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://bottle_red_wine/meshes/bottle.dae</uri>
+            <uri>$(arg path)/bottle_red_wine/meshes/bottle.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -30,7 +31,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://bottle_red_wine/meshes/bottle.dae</uri>
+            <uri>$(arg path)/bottle_red_wine/meshes/bottle.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -57,7 +58,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://bottle_red_wine/meshes/cap.dae</uri>
+            <uri>$(arg path)/bottle_red_wine/meshes/cap.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -80,14 +81,14 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://bottle_red_wine/meshes/cap.dae</uri>
+            <uri>$(arg path)/bottle_red_wine/meshes/cap.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
         
       </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

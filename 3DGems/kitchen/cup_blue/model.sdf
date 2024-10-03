@@ -1,11 +1,12 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='cup_blue'>
+  <model name='cup_blue' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_13'>
        <visual name='visual'>
         <geometry>
           <mesh>
-            <uri>model://cup_blue/meshes/cup1.dae</uri>
+            <uri>$(arg path)/cup_blue/meshes/cup1.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -28,13 +29,13 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_blue/meshes/cup1.dae</uri>
+            <uri>$(arg path)/cup_blue/meshes/cup1.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
       </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

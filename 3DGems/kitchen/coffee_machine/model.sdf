@@ -1,19 +1,20 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='coffee_machine'>
+  <model name='coffee_machine' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_0'>
         <visual name='visual'>
       
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/body.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/body.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
         	<material>
           <script>
-            <uri>model://coffee_machine/materials/scripts</uri>
-            <uri>model://coffee_machine/materials/textures</uri>
+            <uri>$(arg path)/coffee_machine/materials/scripts</uri>
+            <uri>$(arg path)/coffee_machine/materials/textures</uri>
             <name>coffee_body</name>
           </script>
         </material>
@@ -26,7 +27,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/body.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/body.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -37,14 +38,14 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/panel.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/panel.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
         <material>
           <script>
-            <uri>model://coffee_machine/materials/scripts</uri>
-            <uri>model://coffee_machine/materials/textures</uri>
+            <uri>$(arg path)/coffee_machine/materials/scripts</uri>
+            <uri>$(arg path)/coffee_machine/materials/textures</uri>
             <name>coffee_panel</name>
           </script>
         </material>
@@ -57,7 +58,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/panel.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/panel.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -68,14 +69,14 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/sivler.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/sivler.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
          	<material>
           <script>
-            <uri>model://coffee_machine/materials/scripts</uri>
-            <uri>model://coffee_machine/materials/textures</uri>
+            <uri>$(arg path)/coffee_machine/materials/scripts</uri>
+            <uri>$(arg path)/coffee_machine/materials/textures</uri>
             <name>coffee_shaft</name>
           </script>
         </material>
@@ -88,7 +89,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/sivler.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/sivler.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -99,14 +100,14 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/drain.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/drain.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
           	<material>
           <script>
-            <uri>model://coffee_machine/materials/scripts</uri>
-            <uri>model://coffee_machine/materials/textures</uri>
+            <uri>$(arg path)/coffee_machine/materials/scripts</uri>
+            <uri>$(arg path)/coffee_machine/materials/textures</uri>
             <name>coffee_drain</name>
           </script>
         </material>
@@ -119,13 +120,13 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coffee_machine/meshes/drain.dae</uri>
+            <uri>$(arg path)/coffee_machine/meshes/drain.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

@@ -1,12 +1,13 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='cup_green'>
+  <model name='cup_green' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_7'>
       <pose frame=''>0 0 0 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/outer_green.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/outer_green.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -26,7 +27,7 @@
         <pose frame=''>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/outer_green.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/outer_green.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -38,7 +39,7 @@
         <pose frame=''>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/inner_red.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/inner_red.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -58,7 +59,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/inner_red.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/inner_red.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -70,7 +71,7 @@
         <pose frame=''>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/edges.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/edges.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -90,13 +91,13 @@
         <pose frame=''>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_green/meshes/edges.dae</uri>
+            <uri>$(arg path)/cup_green/meshes/edges.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>

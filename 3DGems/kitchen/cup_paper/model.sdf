@@ -1,13 +1,14 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='cup_paper'>
+  <model name='cup_paper' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
     <link name='link_2'>
       <pose frame=''>-0.058736 -0.056528 -0 0 -0 0</pose>
         <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_paper/meshes/base.dae</uri>
+            <uri>$(arg path)/cup_paper/meshes/base.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -27,7 +28,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_paper/meshes/base.dae</uri>
+            <uri>$(arg path)/cup_paper/meshes/base.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -40,7 +41,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_paper/meshes/lid.dae</uri>
+            <uri>$(arg path)/cup_paper/meshes/lid.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -60,13 +61,13 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://cup_paper/meshes/lid.dae</uri>
+            <uri>$(arg path)/cup_paper/meshes/lid.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
-    <static>1</static>
+    <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>
