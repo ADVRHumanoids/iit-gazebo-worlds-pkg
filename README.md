@@ -41,6 +41,9 @@ Then, for example, if you open with an editor the file _spawn_table.launch_, you
 
 where changing the params _x_, _y_, _z_, _roll_, _pitch_ and _yaw_ you can change the pose of the object with respect to the gazebo world frame.
 
+## Objects
+Objects inside 3DGems are taken from https://data.nvision2.eecs.yorku.ca/3DGEMS/. Some of them require some fixing/testing (inertial, staticness) so feel free to fix them ;)
+
 ## To Contribute
 
 Of course, any contribution is super welcomed! The only thing I ask you it is to follow the structure of the repo. 

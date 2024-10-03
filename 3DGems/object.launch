@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="name"/>
+    <arg name="category"/>
+    <arg name="model_sdf_name" default="$(arg name)"/>
+
+    <arg name="pose_x" default="0" />
+    <arg name="pose_y" default="0" />
+    <arg name="pose_z" default="0" />
+    <arg name="model_to_wait_name" default=""/>
+
+    <arg name="pub_tf" default="false"/>
+    <arg name="model_link" default=""/>
+
+    <arg name="path" value="$(find iit_gazebo_worlds_pkg)/3DGems/$(arg category)" />
+
+    <arg name="xacroObject" value="$(arg path)/$(arg model_sdf_name)/model.sdf path:=$(arg path)"/>
+
+    <param name="gazebo/$(arg name)_description" command="$(find xacro)/xacro $(arg xacroObject)" />
+
+    <node if="$(eval model_to_wait_name == '')" name="urdf_spawner_$(arg name)_nowait" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) 
+            -param gazebo/$(arg name)_description" />   
+    
+    <!--     wait option to be sure it will be spawned after (so. above) the table     -->
+    <node unless="$(eval model_to_wait_name == '')" name="urdf_spawner_$(arg name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) 
+            -param gazebo/$(arg name)_description
+             -wait $(arg model_to_wait_name)" />
+
+    <node if="$(arg pub_tf)" name="$(arg name)_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen"
+          args="--reference world --models $(arg name) --models_link $(arg model_link) --ignore_roslaunch_added_param"/>
+    
+</launch>
