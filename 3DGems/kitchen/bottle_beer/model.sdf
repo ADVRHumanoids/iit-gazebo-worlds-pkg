@@ -1,0 +1,103 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='bottle_beer' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
+    <link name='bottle_beer_link'>
+      <pose frame=''>0.000404 7.5e-05 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+          <mesh>
+            <uri>$(arg path)/bottle_beer/meshes/beer_bottle.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <lighting>1</lighting>
+            <ambient>0.035 0.415 0.098 1</ambient>
+          <diffuse>0.035 0.415 0.098 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 1</emissive>
+          <shader type='vertex'>
+            <normal_map>__default__</normal_map>
+          </shader>
+        </material>
+        <cast_shadows>1</cast_shadows>
+        <transparency>0.4</transparency>
+      </visual>
+      <inertial>
+        <mass>0.505</mass>
+        <pose>-0.00000001 -0.00000001 0.16322062 0 0 0</pose>
+        <inertia>
+          <ixx>0.00211026</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00211026</iyy>
+          <iyz>0</iyz>
+          <izz>0.00025696</izz>
+        </inertia>
+      </inertial>
+      <collision name='collision'>
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+        <geometry>
+          <mesh>
+            <uri>$(arg path)/bottle_beer/meshes/beer_bottle.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        </collision>
+    </link>
+    <link name='cap_link'>
+      <pose frame=''>-0.000404 -7.5e-05 0 0 -0 0</pose>
+        <visual name='visual'>
+         <geometry>
+          <mesh>
+            <uri>$(arg path)/bottle_beer/meshes/cap.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <lighting>1</lighting>
+          <ambient>0.694 0.686 0.023 1</ambient>
+          <diffuse>0.694 0.686 0.023 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 1</emissive>
+          <shader type='vertex'>
+            <normal_map>__default__</normal_map>
+          </shader>
+        </material>
+        <cast_shadows>1</cast_shadows>
+        <transparency>0</transparency>
+      </visual>
+      <inertial>
+        <mass>0.005</mass>
+        <pose>0.00340811 -0.00000001 0.24994811 0 0 0</pose>
+        <inertia>
+          <ixx>0.00000024</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000024</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000044</izz>
+        </inertia>
+      </inertial>
+      <collision name='collision'>
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+       <geometry>
+          <mesh>
+            <uri>$(arg path)/bottle_beer/meshes/cap.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="bottle_to_cap" type="fixed">
+      <parent>bottle_beer_link</parent>
+      <child>cap_link</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <static>0</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>

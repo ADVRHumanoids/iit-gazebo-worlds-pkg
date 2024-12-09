@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='donut_3' xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="path" default=""/>
+    <link name='donut_3_link'>
+        <visual name='visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>$(arg path)/donut_3/meshes/donut1.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <lighting>1</lighting>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>0.843 0.709 0.356 1</ambient>
+          <diffuse>0.843 0.709 0.356 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 1</emissive>
+          <shader type='vertex'>
+            <normal_map>__default__</normal_map>
+          </shader>
+        </material>
+        <cast_shadows>1</cast_shadows>
+        <transparency>0</transparency>
+      </visual>
+      <inertial>
+        <mass>0.125</mass>
+        <pose>-0.00539613 -0.00270271 0.02054785 0 0 0</pose>
+        <inertia>
+          <ixx>0.00012371</ixx>
+          <ixy>0.00000518</ixy>
+          <ixz>0.00000114</ixz>
+          <iyy>0.00011019</iyy>
+          <iyz>0.00000072</iyz>
+          <izz>0.00020440</izz>
+        </inertia>
+      </inertial>
+      <collision name='collision'>
+        <laser_retro>0</laser_retro>
+        <max_contacts>10</max_contacts>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>$(arg path)/donut_3/meshes/donut1.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <static>0</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>
