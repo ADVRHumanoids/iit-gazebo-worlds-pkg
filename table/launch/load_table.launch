@@ -7,6 +7,7 @@
     <arg name="pub_tf" default="true"/>
     <arg name="pub_world_pose" default="true"/>
     <arg name="spawn_gazebo" default="true"/>
+    <arg name="waitFor" default=""/>
 
     <arg name="t_pose_x" default="0" />
     <arg name="t_pose_y" default="0" />
@@ -71,9 +72,15 @@
     />
     <param name="gazebo/$(arg table_name)_description" command="$(find xacro)/xacro $(arg xacroTable)" />
     
-    <node if="$(arg spawn_gazebo)" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    <group if="$(arg spawn_gazebo)"> 
+        <node if="$(eval waitFor == '')" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description"/>
-          
+        <node unless="$(eval waitFor == '')" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description -wait $(arg waitFor)"/>
+    </group>
+
+        
+    
     <node if="$(arg pub_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg table_name)_rsp" >
         <remap from="robot_description" to="gazebo/$(arg table_name)_description" />
         <remap from="joint_states" to="$(arg table_name)/joint_states" />
