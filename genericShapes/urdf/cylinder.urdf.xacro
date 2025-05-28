@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="cylinder">
+
+    <xacro:arg name="name" default="cylinder"/>
+    <xacro:arg name="height" default="0.3904"/>
+    <xacro:arg name="radius" default="0.5361"/>
+    <xacro:arg name="mass" default="2"/>
+    <xacro:arg name="r" default="0"/>
+    <xacro:arg name="g" default="0"/>
+    <xacro:arg name="b" default="1"/>
+    <xacro:arg name="a" default="1"/>
+    <xacro:arg name="gazebo_color" default="Gazebo/Blue"/>
+    <xacro:arg name="kp" default="1e13"/>
+    <xacro:arg name="kd" default="1"/>
+    <xacro:arg name="mu1" default="0.8"/>
+    <xacro:arg name="mu2" default="0.8"/>
+
+    <xacro:property name="name" value="$(arg name)"/>
+    <xacro:property name="height" value="$(arg height)"/>
+    <xacro:property name="radius" value="$(arg radius)"/>
+    <xacro:property name="mass" value="$(arg mass)"/>
+    <xacro:property name="r" value="$(arg r)"/>
+    <xacro:property name="g" value="$(arg g)"/>
+    <xacro:property name="b" value="$(arg b)"/>
+    <xacro:property name="a" value="$(arg a)"/>
+    <xacro:property name="gazebo_color" value="$(arg gazebo_color)"/>
+    <xacro:property name="kp" value="$(arg kp)"/>
+    <xacro:property name="kd" value="$(arg kd)"/>
+    <xacro:property name="mu1" value="$(arg mu1)"/>
+    <xacro:property name="mu2" value="$(arg mu2)"/>
+
+    <link name="${name}_link">
+		<inertial>
+            <mass value="${mass}" />
+			<!-- cylindrical shell : Izz=m*r^2; Ixx=Iyy=1/12*m*(6*r^2+h^2) -->
+			<!-- solid cylinder : Izz=(m*r^2)/2; Ixx=Iyy=1/12*m*(3*r^2+h^2) -->
+			<inertia
+                ixx="${0.083 * mass * (3*radius*radius+(height*height))}" ixy="0.0"  ixz="0.0" 
+                iyy="${0.083 * mass * (3*radius*radius+(height*height))}" iyz="0.0" 
+                izz="${0.5 * mass * radius * radius}" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder length="${height}" radius="${radius}"/>
+			</geometry>
+            <material name="cyl_color_rviz">
+                <color rgba="${r} ${g} ${b} ${a}"/>
+                <ambient>0 0 0 1</ambient>
+                <diffuse>0 0 0 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>0 0 0 1</emissive>
+            </material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder length="${height}" radius="${radius}"/>
+			</geometry>
+		</collision>
+	</link>
+
+    <gazebo reference="${name}_link">
+        <mu1>${mu1}</mu1>
+        <mu2>${mu2}</mu2>
+        <kp>${kp}</kp>
+        <kd>${kd}</kd>	
+        <material>${gazebo_color}</material>
+    </gazebo>
+
+</robot>
