@@ -19,6 +19,7 @@
     <arg name="alfa" default="1"/>
     <arg name="gazebo_color" default="Gazebo/ZincYellow"/>
     <arg name="waitFor" default=""/>
+    <arg name="launchPrefix" default=""/>  <!-- <arg name="launchPrefix" value="bash -c 'sleep 4; $0 $@'"/> -->
 
     <arg name="pub_data" default="false"/>
     
@@ -30,11 +31,12 @@
     <param name="gazebo/$(arg name)_description" command="$(find xacro)/xacro $(arg xacroCylinder)" />
 
     <node if="$(eval waitFor == '')" name="urdf_spawner_$(arg name)_nowait" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description" />   
+          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description" 
+          launch-prefix="$(arg launchPrefix)"/>   
     <!--     wait option to be sure it will be spawned after (so. above) the table     -->
     <node unless="$(eval waitFor == '')" name="urdf_spawner_$(arg name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description -wait $(arg waitFor)" />
-    <!--           launch-prefix="bash -c 'sleep 2; $0 $@' "/>  --> <!-- now waiting for the table with -wait option -->
+          args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description -wait $(arg waitFor)"
+          launch-prefix="$(arg launchPrefix)"/>
 
     <group if="$(arg pub_data)" >
         <node name="$(arg name)_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen"

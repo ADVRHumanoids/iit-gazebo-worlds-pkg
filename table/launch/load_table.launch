@@ -8,6 +8,7 @@
     <arg name="pub_world_pose" default="true"/>
     <arg name="spawn_gazebo" default="true"/>
     <arg name="waitFor" default=""/>
+    <arg name="launchPrefix" default=""/> <!-- <arg name="launchPrefix" value="bash -c 'sleep 4; $0 $@'"/> -->
 
     <arg name="t_pose_x" default="0" />
     <arg name="t_pose_y" default="0" />
@@ -74,9 +75,11 @@
     
     <group if="$(arg spawn_gazebo)"> 
         <node if="$(eval waitFor == '')" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description"/>
+          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description" 
+          launch-prefix="$(arg launchPrefix)"/>
         <node unless="$(eval waitFor == '')" name="urdf_spawner_$(arg table_name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description -wait $(arg waitFor)"/>
+          args="-urdf -x $(arg t_pose_x) -y $(arg t_pose_y) -z $(arg t_pose_z) -model $(arg table_name) -param gazebo/$(arg table_name)_description -wait $(arg waitFor)"
+          launch-prefix="$(arg launchPrefix)"/>
     </group>
 
         
