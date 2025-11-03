@@ -2,12 +2,13 @@
 <launch>
 
     <arg name="table_name" default="table"/>
-    <arg name="table_urdf_name" default="$(arg table_name)"/>
+    <arg name="table_urdf_name" default="$(var table_name)"/>
     <arg name="parent" default="world" />
-    <arg name="pub_tf" default="true"/>
+    <arg name="robot_state_publisher" default="true"/>
     <arg name="pub_world_pose" default="true"/>
-    <arg name="spawn_gazebo" default="true"/>
+    <arg name="spawn_gazebo" default="false"/>
     <arg name="waitFor" default=""/>
+    <arg name="rviz" default="false"/>
     <arg name="launchPrefix" default=""/> <!-- <arg name="launchPrefix" value="bash -c 'sleep 4; $0 $@'"/> -->
 
     <arg name="t_pose_x" default="0" />
@@ -31,12 +32,12 @@
     <arg name="marker_thickness" default="0.001" description="if the marker is printed on a thick surface (like a carboard piece) it will be not in line with the table surface but sliglty above. Use this arg for this measure"/>
     
     <!-- TABLE  -->
-    <let name="xacroTable" value="$(find iit_gazebo_worlds_pkg)/table/urdf/$(var table_urdf_name).urdf.xacro 
+    <let name="xacroTable" value="$(find-pkg-share iit_gazebo_worlds_pkg)/table/urdf/$(var table_urdf_name).urdf.xacro 
          surface_size_x:=$(var surface_size_x)
          surface_size_y:=$(var surface_size_y)
          surface_size_z:=$(var surface_size_z)
          surface_high:=$(var surface_high)
-		 surface_mass:=$(var surface_mass)
+		     surface_mass:=$(var surface_mass)
          leg_mass:=$(var leg_mass)
          surface_gazebo_color:=$(var surface_gazebo_color)
          leg_gazebo_color:=$(var leg_gazebo_color)         
@@ -47,7 +48,9 @@
          marker_id:=$(var marker_id)
          marker_pos:=$(var marker_pos)
          marker_thickness:=$(var marker_thickness)
-         keyboard:=$(var keyboard)
+         "
+    />
+    <!--          keyboard:=$(var keyboard)
          key_size_x:=$(var key_size_x)
          key_size_y:=$(var key_size_y)
          key_size_z:=$(var key_size_z)
@@ -56,33 +59,35 @@
          keyboard_parent:=$(var keyboard_parent)
          keyboard_x:=$(var keyboard_x)
          keyboard_y:=$(var keyboard_y)
-         keyboard_z:=$(var keyboard_z)
-         "
-    />
-    <param name="gazebo/$(var table_name)_description" command="$(find xacro)/xacro $(var xacroTable)" />
-    
-    <group if="$(var spawn_gazebo)"> 
-        <node if="$(eval waitFor == '')" name="urdf_spawner_$(var table_name)" pkg="gazebo_ros" exec="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(var t_pose_x) -y $(var t_pose_y) -z $(var t_pose_z) -model $(var table_name) -param gazebo/$(var table_name)_description" 
-          launch-prefix="$(var launchPrefix)"/>
-        <node unless="$(eval waitFor == '')" name="urdf_spawner_$(var table_name)" pkg="gazebo_ros" exec="spawn_model" respawn="false" output="screen"
-          args="-urdf -x $(var t_pose_x) -y $(var t_pose_y) -z $(var t_pose_z) -model $(var table_name) -param gazebo/$(var table_name)_description -wait $(var waitFor)"
-          launch-prefix="$(var launchPrefix)"/>
-    </group>
+         keyboard_z:=$(var keyboard_z) -->
 
-        
-    
-    <node if="$(var pub_tf)" pkg="robot_state_publisher" exec="robot_state_publisher" name="$(var table_name)_rsp" >
-        <remap from="robot_description" to="gazebo/$(var table_name)_description" />
-        <remap from="joint_states" to="$(var table_name)/joint_states" />
+
+    <node if="$(var robot_state_publisher)" namespace='$(var table_name)' pkg="robot_state_publisher" exec="robot_state_publisher" name="$(var table_name)_rsp" >
+        <param name="robot_description" value="$(command 'xacro $(var xacroTable)')"/>
     </node>
     
-    <node if="$(eval '\'$(var spawn_gazebo)\' and '\'$(var pub_world_pose)\'" name="$(var table_name)_pose_gazebo_to_tf" 
-      pkg="tpo_gazebo" exec="pose_gazebo_to_tf.py" output="screen"
-      args="--reference world --models $(var table_name) --models_link surface --ignore_roslaunch_added_param"/>
-    <node if="$(eval (not \'$(var spawn_gazebo)\') and '\'$(var pub_world_pose)\'" name="$(var table_name)_static_tf_pub" 
-      pkg="tf2_ros" exec="static_transform_publisher" output="screen"
-      args="--x $(var t_pose_x) --y $(var t_pose_y) --z $(var t_pose_z) --yaw 0 --pitch 0 --roll 0 --frame-id $(var parent) --child-frame-id surface"
-      />
-    
+    <group if="$(var spawn_gazebo)"> 
+        <node name="urdf_spawner_$(var table_name)" pkg="ros_gz_sim" exec="create" respawn="false" output="screen"
+          args="-urdf -x $(var t_pose_x) -y $(var t_pose_y) -z $(var t_pose_z) -name $(var table_name) -param gazebo/$(var table_name)_description" 
+          launch-prefix="$(var launchPrefix)">
+          </node>
+        <!-- <node unless="$(eval '\'$(var waitFor)\' == '\''\')" name="urdf_spawner_$(var table_name)" pkg="ros_gz_sim" exec="create" respawn="false" output="screen"
+          args="-urdf -x $(var t_pose_x) -y $(var t_pose_y) -z $(var t_pose_z) -name $(var table_name) -param gazebo/$(var table_name)_description -wait $(var waitFor)"
+          launch-prefix="$(var launchPrefix)">
+          </node> -->
+    </group>
+
+    <group if="$(var pub_world_pose)"> 
+      <node if="$(var spawn_gazebo)" name="$(var table_name)_pose_gazebo_to_tf"
+        pkg="iit_gazebo_worlds_pkg" exec="pose_gazebo_to_tf" output="screen"
+        args="--reference world --models $(var table_name) --models_link surface --ignore_roslaunch_added_param"/>
+      <node unless="$(var spawn_gazebo)" name="$(var table_name)_static_tf_pub" 
+        pkg="tf2_ros" exec="static_transform_publisher" output="screen"
+        args="--x $(var t_pose_x) --y $(var t_pose_y) --z $(var t_pose_z) --yaw 0 --pitch 0 --roll 0 --frame-id $(var parent) --child-frame-id surface"
+        />
+    </group>
+
+  <node if="$(var rviz)" pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(find-pkg-share iit_gazebo_worlds_pkg)/table/config/table.rviz">
+  </node> 
+
 </launch>
