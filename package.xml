@@ -1,19 +1,24 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>iit_gazebo_worlds_pkg</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <description>
     iit_gazebo_worlds_pkg is a collection of gazebo worlds and models useful for simulations.
   </description>
-  <license>Apache 2.0</license>
-  <author email="liana.bertoni@iit.it">liana</author>
-  <maintainer email="liana.bertoni@iit.it">liana</maintainer>
+
   <maintainer email="davide.torielli@iit.it">Davide Torielli</maintainer>
-  <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>gazebo_ros</exec_depend>
-  <exec_depend>gazebo</exec_depend>
-  <exec_depend>gazebo_plugins</exec_depend>
+
+  <license>Apache License 2.0</license>
+
+  <author email="liana.bertoni@iit.it">liana</author>
+
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>ros_gz</exec_depend>  
+
   <export>
-    <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" gazebo_model_path="${prefix}/models"/>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.7.2)
+cmake_minimum_required(VERSION 3.10.2)
 project(iit_gazebo_worlds_pkg)
 
-find_package(catkin REQUIRED COMPONENTS
-  rospy
-  gazebo_ros
-)
+find_package(ament_cmake_python REQUIRED)
+find_package(rclpy REQUIRED)
+find_package(gazebo_ros REQUIRED)
 
-catkin_package()
+# install(PROGRAMS
+#   scripts/pose_gazebo_to_tf
+#   DESTINATION lib/${PROJECT_NAME}
+# )
 
-catkin_python_setup()
-
-install(DIRECTORY launch models worlds
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+install(DIRECTORY 3DGems genericShapes table
+  DESTINATION share/${PROJECT_NAME}
 )

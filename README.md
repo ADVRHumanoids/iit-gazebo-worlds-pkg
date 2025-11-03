@@ -1,5 +1,6 @@
 # iit-gazebo-worlds-pkg
 Collection of Gazebo worlds useful for simulations. This repo has been though to provide _a ready to use_ launch files to show models in the gazebo world useful for robotics simulations. 
+Check master branch for other models, not all of them have been ported to ROS2
 
 ## Usage
 In order to use what the package provides, there are two ways. In particular, you can import and run a new gazebo world (with what you need) running the launch file which have the prefix _view_. As for example:

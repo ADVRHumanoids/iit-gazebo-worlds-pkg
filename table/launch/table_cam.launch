@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}] [${function}] [${line}]: ${message}"/>
+  <set_env name="RCUTILS_CONSOLE_OUTPUT_FORMAT" value="[{severity}] [{time}] [{name}]: [{function_name}] [{line}]: {message}"/>
 
     
   <arg name="recompress_image" default="false" /> 
@@ -9,56 +9,56 @@
   <arg name="camera" default="D435_camera" /> 
   <arg name="color" default="color" /> 
   <arg name="image" default="image_raw"/>
-  <arg name="transport" value="compressed" />
+  <let name="transport" value="compressed" />
   <arg name="fiducial_len" default="0.065"/> <!-- marker on the cardboard support-->
-  <arg name="dictionary" value="0" /><!-- marker on the cardboard support-->
+  <let name="dictionary" value="0" /><!-- marker on the cardboard support-->
 
 <!--  Default stuff kept as it is  -->
   <arg name="do_pose_estimation" default="true"/>
   <arg name="ignore_fiducials" default="" />
   <arg name="fiducial_len_override" default="" />
   
-      <arg name='depth' default='true' />
-    <arg name="serial_no" default=""/>  
+  <arg name='depth' default='true' />
+  <arg name="serial_no" default=""/>  
   
 
-      <!-- ***************************** REALSENSE D435   ********************************************************************************************** -->
+  <!-- ***************************** REALSENSE D435   ********************************************************************************************** -->
     
-    <include file="$(find realsense_gazebo_description)/launch/load_d435i_standalone.launch">
-        <arg name="name" default="$(arg camera)" />
-        <arg name="parent" default="$(arg camera)_mount" />
-        <arg name="pose_x" value="0" />
-        <arg name="pose_y" value="0" />
-        <arg name="pose_z" value="0" />
-        <arg name="pose_roll" value="0" />
-        <arg name="pose_pitch" value="0" />
-        <arg name="pose_yaw" value="0" />
-        <arg name="enable_pointcloud" value="false" />
-        <arg name="pub_world_tf" value="false" />
-        <arg name="pub_tf" value="true" />
-        <arg name="spawn_gazebo" value="false" />
-    </include>
+  <include file="$(find-pkg-share realsense_gazebo_description)/launch/view_d435i.launch.py">
+    <arg name="name" default="$(var camera)" />
+    <arg name="parent" default="$(var camera)_mount" />
+    <let name="pose_x" value="0" />
+    <let name="pose_y" value="0" />
+    <let name="pose_z" value="0" />
+    <let name="pose_roll" value="0" />
+    <let name="pose_pitch" value="0" />
+    <let name="pose_yaw" value="0" />
+    <let name="publish_pointcloud" value="false" />
+    <let name="pub_world_tf" value="false" />
+    <let name="robot_state_publisher" value="true" />
+    <let name="rviz" value="false" />
+  </include>
     
     <!-- ***************************** TABLE   ********************************************************************************* -->
 
-    <arg name="t_pose_x" value="0" />
-    <arg name="t_pose_y" value="0" />
-    <arg name="t_pose_z" value="0" />
-    <arg name="t_size_x" value="0.75" />
-    <arg name="t_size_y" value="1.2" />
-    <arg name="t_size_z" value="0.853" />
+    <let name="t_pose_x" value="0" />
+    <let name="t_pose_y" value="0" />
+    <let name="t_pose_z" value="0" />
+    <let name="t_size_x" value="0.75" />
+    <let name="t_size_y" value="1.2" />
+    <let name="t_size_z" value="0.853" />
 
     <include file="$(find iit_gazebo_worlds_pkg)/table/launch/load_table.launch">
         <arg name="table_name" value="table"/>
         <arg name="table_urdf_name" value="table_inverted"/>
         <arg name="pub_tf" value="true"/>
         <arg name="pub_world_pose" value="false"/>
-        <arg name="t_pose_x" value="$(arg t_pose_x)" />
-        <arg name="t_pose_y" value="$(arg t_pose_y)" />
-        <arg name="t_pose_z" value="$(arg t_pose_z)" />
-        <arg name="surface_size_x" value="$(arg t_size_x)"/>
-        <arg name="surface_size_y" value="$(arg t_size_y)"/>
-        <arg name="surface_high" value="$(arg t_size_z)"/>
+        <arg name="t_pose_x" value="$(var t_pose_x)" />
+        <arg name="t_pose_y" value="$(var t_pose_y)" />
+        <arg name="t_pose_z" value="$(var t_pose_z)" />
+        <arg name="surface_size_x" value="$(var t_size_x)"/>
+        <arg name="surface_size_y" value="$(var t_size_y)"/>
+        <arg name="surface_high" value="$(var t_size_z)"/>
         <arg name="surface_gazebo_color" value="Gazebo/Gold"/>
         <arg name="spawn_gazebo" value="false" />
         <arg name="markers" value="true"/>
@@ -69,18 +69,18 @@
     </include>
 
   
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-        <arg name="serial_no" value="$(arg serial_no)" />
-        <arg name="camera" value="$(arg camera)" />
-        <arg name="enable_depth" value="$(arg depth)" />
+    <!-- <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="serial_no" value="$(var serial_no)" />
+        <arg name="camera" value="$(var camera)" />
+        <arg name="enable_depth" value="$(var depth)" />
         <arg name="enable_color" value="true" />
-        <arg name="enable_pointcloud" value="$(arg depth)" />
-        <arg name="ordered_pc" value="$(arg depth)" />
-        <arg name="align_depth" value="$(arg depth)" />
+        <arg name="enable_pointcloud" value="$(var depth)" />
+        <arg name="ordered_pc" value="$(var depth)" />
+        <arg name="align_depth" value="$(var depth)" />
         <arg name="publish_tf" value="false" />
         <arg name="tf_publish_rate" value="10" />
-    </include>
-
+    </include> -->
+<!-- 
   <node pkg="aruco_detect" name="aruco_detect"
     type="aruco_detect" output="screen" respawn="false">
     <param name="image_transport" value="$(arg transport)"/>
@@ -93,9 +93,9 @@
     <param name="publish_fiducial_tf" value="true"/>
     <remap from="/camera/compressed" to="$(arg camera)/$(arg color)/$(arg image)/$(arg transport)"/>
     <remap from="/camera_info" to="$(arg camera)/$(arg color)/camera_info"/>
-  </node>
+  </node> -->
     
-    <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find iit_gazebo_worlds_pkg)/table/config/table_cam.rviz">
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(find-pkg-share iit_gazebo_worlds_pkg)/table/config/table_cam.rviz">
     </node> 
     
     
