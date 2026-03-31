@@ -11,7 +11,7 @@ find_package(ros_gz_sim REQUIRED)
 # )
 
 install(
-  DIRECTORY 3DGems genericShapes table
+  DIRECTORY 3DGems genericShapes table arucoBoxes
   DESTINATION share/${PROJECT_NAME}
 )
 

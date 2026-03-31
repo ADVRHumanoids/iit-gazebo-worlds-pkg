@@ -1,12 +1,13 @@
-#!/usr/bin/env python
-import rospy, tf2_ros
+#!/usr/bin/env python3
+
+import rclpy, tf2_ros
 import argparse, sys
 import copy
 from gazebo_msgs.msg import ModelStates
 from geometry_msgs.msg import Pose, TransformStamped
 
-
-parser = argparse.ArgumentParser(description='This ROS node subscribe to "/gazebo/model_states", read the Pose of the "models" and publish the according tf (eg for rviz) from the "reference" link to the "models_links". Note that for fixed transforms (ie fixed joint) it is better to use the robot state publisher')
+#TODO use /world/<world_name>/pose/info instead, or add pose plugin to each model...
+parser = argparse.ArgumentParser(description='This ROS node subscribe to "/world/<world_name>/pose/info", read the Pose of the "models" and publish the according tf (eg for rviz) from the "reference" link to the "models_links". Note that for fixed transforms (ie fixed joint) it is better to use the robot state publisher')
 parser._action_groups.pop()
 required = parser.add_argument_group('required arguments')
 optional = parser.add_argument_group('optional arguments')
