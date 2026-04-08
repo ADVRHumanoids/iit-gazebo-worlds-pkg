@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="name" default="sphere"/>
+    <arg name="pub_world_pose" default="false"/>
+
+    <arg name="radius" default="0.1"/>
+    <arg name="mass" default="0.1"/>
+    <arg name="static" default="false"/>
+    <arg name="pose_x" default="0" />
+    <arg name="pose_y" default="0" />
+    <arg name="pose_z" default="0" />
+    <arg name="kp" default="1000000"/>
+    <arg name="kd" default="1"/>
+    <arg name="mu1" default="0.8"/>
+    <arg name="mu2" default="0.8"/>
+    <arg name="red" default="1"/>
+    <arg name="green" default="0"/>
+    <arg name="blue" default="0"/>
+    <arg name="alfa" default="1"/>
+    <arg name="gazebo_color" default="Gazebo/ZincYellow"/>
+
+    <arg name="waitFor" default=""/>
+    <arg name="launchPrefix" default=""/>  <!-- <arg name="launchPrefix" value="bash -c 'sleep 4; $0 $@'"/> -->
+    
+    <let name="xacroSphere" value="$(find-pkg-share iit_gazebo_worlds_pkg)/genericShapes/urdf/sphere.urdf.xacro
+           name:=$(var name) 
+           radius:=$(var radius) 
+           mass:=$(var mass)
+           static:=$(var static)
+           r:=$(var red) 
+           g:=$(var green) 
+           b:=$(var blue) 
+           a:=$(var alfa) 
+           gazebo_color:=$(var gazebo_color)
+           kp:=$(var kp) 
+           kd:=$(var kd)
+           mu1:=$(var mu1) 
+           mu2:=$(var mu2)" />
+
+    <node pkg="robot_state_publisher" exec="robot_state_publisher" namespace="$(var name)" name="rsp" output="screen">
+      <param name="robot_description" value="$(command 'xacro $(var xacroSphere)')"/>
+    </node>
+
+    <node pkg="ros_gz_sim" exec="create" name="urdf_spawner_$(var name)" output="screen" respawn="false">
+      <param name="name" value="$(var name)"/>
+      <param name="x" type="float" value="$(var pose_x)"/>
+      <param name="y" type="float" value="$(var pose_y)"/>
+      <param name="z" type="float" value="$(var pose_z)"/>
+      <param name="string" type="str" value="$(command 'xacro $(var xacroSphere)')"/>
+    </node>
+
+    <group if="$(var pub_world_pose)"> 
+      <group if="$(var static)">
+            <!-- for static objects, publish a static tf from the model description -->
+            <node namespace="$(var name)" name="static_tf_pub" pkg="tf2_ros" exec="static_transform_publisher" output="screen"
+            args="$(var pose_x) $(var pose_y) $(var pose_z) 0 0 0 world $(var name)_link"/>
+      </group>
+      <group unless="$(var static)">
+            <!-- TODO: Implement script -->
+            <node  name="$(var name)_pose_gazebo_to_tf"
+                  pkg="iit_gazebo_worlds_pkg" exec="pose_gazebo_to_tf" output="screen"
+                  args="--reference world --models $(var name) --models_link $(var name)_link --ignore_roslaunch_added_param"/>
+      </group>
+    </group>
+    
+</launch>
