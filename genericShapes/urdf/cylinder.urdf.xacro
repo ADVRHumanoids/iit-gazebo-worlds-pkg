@@ -5,6 +5,7 @@
     <xacro:arg name="height" default="0.3904"/>
     <xacro:arg name="radius" default="0.5361"/>
     <xacro:arg name="mass" default="2"/>
+    <xacro:arg name="static" default="false"/>
     <xacro:arg name="r" default="0"/>
     <xacro:arg name="g" default="0"/>
     <xacro:arg name="b" default="1"/>
@@ -19,6 +20,7 @@
     <xacro:property name="height" value="$(arg height)"/>
     <xacro:property name="radius" value="$(arg radius)"/>
     <xacro:property name="mass" value="$(arg mass)"/>
+    <xacro:property name="static" value="$(arg static)"/>
     <xacro:property name="r" value="$(arg r)"/>
     <xacro:property name="g" value="$(arg g)"/>
     <xacro:property name="b" value="$(arg b)"/>
@@ -59,7 +61,10 @@
 			</geometry>
 		</collision>
 	</link>
-
+    
+    <gazebo>
+        <static>${static}</static>
+    </gazebo>
     <gazebo reference="${name}_link">
         <mu1>${mu1}</mu1>
         <mu2>${mu2}</mu2>
