@@ -61,7 +61,7 @@
             <!-- TODO: Implement script -->
             <node  name="$(var name)_pose_gazebo_to_tf"
                   pkg="iit_gazebo_worlds_pkg" exec="pose_gazebo_to_tf" output="screen"
-                  args="--reference world --models $(var name) --models_link $(var name)_link --ignore_roslaunch_added_param"/>
+                  args="--reference world --models $(var name) --models_link $(var name) --ignore_roslaunch_added_param"/>
       </group>
     </group>
     

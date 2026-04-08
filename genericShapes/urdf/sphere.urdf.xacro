@@ -29,7 +29,7 @@
     <xacro:property name="mu1" value="$(arg mu1)"/>
     <xacro:property name="mu2" value="$(arg mu2)"/>
 
-    <link name="${name}_link">
+    <link name="${name}">
         <inertial>
             <mass value="${mass}" />
             <!-- solid sphere is Ixx=Iyy=Izz=(2/5)*m*r^2 -->
@@ -62,7 +62,7 @@
     <gazebo>
         <static>${static}</static>
     </gazebo>
-    <gazebo reference="${name}_link">
+    <gazebo reference="${name}">
         <mu1>${mu1}</mu1>
         <mu2>${mu2}</mu2>
         <kp>${kp}</kp>

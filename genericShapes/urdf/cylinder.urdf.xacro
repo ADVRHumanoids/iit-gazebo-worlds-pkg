@@ -31,7 +31,7 @@
     <xacro:property name="mu1" value="$(arg mu1)"/>
     <xacro:property name="mu2" value="$(arg mu2)"/>
 
-    <link name="${name}_link">
+    <link name="${name}">
 		<inertial>
             <mass value="${mass}" />
 			<!-- cylindrical shell : Izz=m*r^2; Ixx=Iyy=1/12*m*(6*r^2+h^2) -->
@@ -65,7 +65,7 @@
     <gazebo>
         <static>${static}</static>
     </gazebo>
-    <gazebo reference="${name}_link">
+    <gazebo reference="${name}">
         <mu1>${mu1}</mu1>
         <mu2>${mu2}</mu2>
         <kp>${kp}</kp>
