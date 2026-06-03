@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+  <group scoped="true">
 
     <arg name="table_name" default="table"/>
     <arg name="table_urdf_name" default="$(var table_name)"/>
@@ -81,7 +82,8 @@
         />
     </group>
 
-  <node if="$(var rviz)" pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(find-pkg-share iit_gazebo_worlds_pkg)/table/config/table.rviz">
-  </node> 
+    <node if="$(var rviz)" pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(find-pkg-share iit_gazebo_worlds_pkg)/table/config/table.rviz">
+    </node> 
 
+  </group>
 </launch>

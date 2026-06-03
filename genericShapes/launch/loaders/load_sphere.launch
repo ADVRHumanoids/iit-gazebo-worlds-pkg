@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+  <group scoped="true">
 
     <arg name="name" default="sphere"/>
     <arg name="pub_world_pose" default="false"/>
@@ -63,5 +64,6 @@
                   args="--reference world --models $(var name) --models_link $(var name) --ignore_roslaunch_added_param"/>
       </group>
     </group>
-    
+
+  </group> 
 </launch>

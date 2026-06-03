@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <launch>
+  <group scoped="true">
 
-	<arg name="name" default="cylinder"/>
-	<arg name="pub_world_pose" default="true"/>
-
+    <arg name="name" default="cylinder"/>
+    <arg name="pub_world_pose" default="true"/>
     <arg name="radius" default="0.1"/>
     <arg name="height" default="0.6"/>
     <arg name="mass" default="0.1"/>
@@ -65,4 +65,5 @@
       </group>
     </group>
     
+  </group>   
 </launch>

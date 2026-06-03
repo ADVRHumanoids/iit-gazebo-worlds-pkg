@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+  <group scoped="true">
 
 <!--  If change here, remeber also to change in the config files of xbot    -->
     
@@ -17,5 +18,5 @@
     <node name="urdf_spawner_$(arg name)" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -x $(arg pose_x) -y $(arg pose_y) -z $(arg pose_z) -model $(arg name) -param gazebo/$(arg name)_description -wait $(arg table_model_name)" />
     <!--           launch-prefix="bash -c 'sleep 2; $0 $@' "/>  --> <!-- now waiting for the table with -wait option -->
-    
+  </group>
 </launch>

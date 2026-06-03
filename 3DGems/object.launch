@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+  <group scoped="true">
 
     <arg name="name" doc="name in the gazebo world, must be unique"/>
     <arg name="category" doc="the name of the folder categroy (eg food or kitchen)"/>
@@ -33,5 +34,5 @@
 
     <node if="$(arg pub_tf)" name="$(arg name)_pose_gazebo_to_tf" pkg="iit_gazebo_worlds_pkg" type="pose_gazebo_to_tf.py" output="screen"
           args="--reference world --models $(arg name) --models_link $(arg model_link) --ignore_roslaunch_added_param"/>
-    
+  </group>   
 </launch>
